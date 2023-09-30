@@ -112,6 +112,7 @@ import template from "ejs";
   if (task === undefined) {
     console.log(`${C.bgRedBright(`🍫 Script error `)} The Command not found.`);
     console.log(`➖ Docs: ${C.underline(`https://github.com/akirarika/co`)}`);
+    console.log(`➖ Config: ${C.underline(paths.config)}`);
     exit(0);
   }
 

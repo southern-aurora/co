@@ -88,41 +88,49 @@ co a:g eslint
 ### 运行脚本
 
 别名：`"run", "r"`
+
 对应 npm 命令：`npm run`
 
 ### 执行 (npx)
 
 别名：`"execute", "x"`
+
 对应 npm 命令：`npx`
 
 ### 安装 (安装依赖)
 
 别名：`"install", "i", "add", "a"`
+
 对应 npm 命令：`npm install`
 
 ### 安装一个包
 
 别名：`"install", "i", "add", "a"`
+
 对应 npm 命令：`npm install --save`
 
 ### 安装一个包 (至开发环境)
 
 别名：`"install:dev", "i:d", "add:dev", "a:d"`
+
 对应 npm 命令：`npm install --save-dev`
 
 ### 安装一个包 (至全局)
 
 别名：`"install:global", "i:g", "add:global", "a:g"`
+
 对应 npm 命令：`npm install --global`
 
 ### 更新依赖
 
 别名：`"update", "up", "upgrade"`
+
 对应 npm 命令：`npm upgrade`
 
 ### 卸载一个包
 
 别名：`"uninstall", "un", "remove", "rm"`
+
 对应 npm 命令：`npm uninstall`
 
 ## 自定义命令
