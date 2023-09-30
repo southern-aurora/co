@@ -73,7 +73,10 @@ import template from "ejs";
 
     await writeFile(paths.config, config);
 
-    console.log(`😸 Now, you can use ${C.bgYellowBright("co")} in here!`);
+    console.log(`😸 Now, you can use ${C.bgYellowBright("co")} in here!\n`);
+    console.log(`➖ Docs: ${C.underline(`https://github.com/akirarika/co`)}`);
+    console.log(`➖ Config: ${C.underline(paths.config)}`);
+    console.log(``);
     exit(0);
   }
 
@@ -108,6 +111,7 @@ import template from "ejs";
 
   if (task === undefined) {
     console.log(`${C.bgRedBright(`🍫 Script error `)} The Command not found.`);
+    console.log(`➖ Docs: ${C.underline(`https://github.com/akirarika/co`)}`);
     exit(0);
   }
 

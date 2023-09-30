@@ -1,14 +1,10 @@
 {
   "name": "co",
+  "private": true,
   "module": "bootstrap.js",
-  "scripts": {
-    "dev": "node ./bootstrap.js",
-    "start": "node ./bootstrap.js",
-    "build": "rm -rf ./dist && rm -f ./co && pkg . --out-path dist && cp ./dist/co-linux-x64 ./co",
-    "linux-install-ldid": "cd /bin && wget https://github.com/ProcursusTeam/ldid/releases/download/v2.1.5-procursus7/ldid_linux_x86_64 && mv /bin/ldid_linux_x86_64 /bin/ldid && chmod +x /bin/ldid"
-  },
   "bin": "./bootstrap.js",
   "pkg": {
+    "outPath": "dist",
     "scripts": "./bootstrap.js",
     "assets": [
       "./node_modules/**/*",
@@ -18,13 +14,6 @@
       "./package-lock.json",
       "./tsconfig.json",
       "package.json"
-    ],
-    "targets": [
-      "node18-linux-x64",
-      "node18-linux-arm64",
-      "node18-macos-x64",
-      "node18-macos-arm64",
-      "node18-win-x64"
     ],
     "outputPath": "dist"
   },
@@ -38,7 +27,6 @@
     "ejs": "^3.1.9",
     "enquirer": "^2.4.1",
     "jiti": "^1.20.0",
-    "pkg": "^5.8.1",
     "shelljs": "^0.8.5",
     "toml": "^3.0.0"
   },

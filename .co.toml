@@ -1,12 +1,58 @@
 # -------------------------- #
 #      Project Commands      #
 # -------------------------- #
-["say"]
-commands = ["say", "speak", "echo"]
+["start"]
+commands = ["dev", "start"]
 scripts = [
     # the command to run, can run multiple
-    "echo '<%= args || 'hello world' %>'",
-    "echo '📜 try editing \".co.toml\"'",
+    'node ./bootstrap.js',
+]
+
+["build"]
+commands = ["build"]
+scripts = [
+    #
+    'rm -rf ./dist',
+    'pkg . --targets node18-linux-x64',
+    'cp ./package/package.json.template ./dist/package.json',
+    'echo "\"bin\": {\"co\": \"co\"}," >>  ./dist/package.json',
+    'echo "\"name\": \"co-linux-x64\"" >> ./dist/package.json  && echo "}" >> ./dist/package.json',
+    'cd ./dist && npm publish --access public',
+    #
+    'rm -rf ./dist',
+    'pkg . --targets node18-linux-arm64',
+    'cp ./package/package.json.template ./dist/package.json',
+    'echo "\"bin\": {\"co\": \"co\"}," >>  ./dist/package.json',
+    'echo "\"name\": \"co-linux-arm64\"" >> ./dist/package.json  && echo "}" >> ./dist/package.json',
+    'cd ./dist && npm publish --access public',
+    #
+    'rm -rf ./dist',
+    'pkg . --targets node18-macos-x64',
+    'cp ./package/package.json.template ./dist/package.json',
+    'echo "\"bin\": {\"co\": \"co\"}," >>  ./dist/package.json',
+    'echo "\"name\": \"co-macos-x64\"" >> ./dist/package.json  && echo "}" >> ./dist/package.json',
+    'cd ./dist && npm publish --access public',
+    #
+    'rm -rf ./dist',
+    'pkg . --targets node18-macos-arm64',
+    'cp ./package/package.json.template ./dist/package.json',
+    'echo "\"bin\": {\"co\": \"co\"}," >>  ./dist/package.json',
+    'echo "\"name\": \"co-macos-arm64\"" >> ./dist/package.json  && echo "}" >> ./dist/package.json',
+    'cd ./dist && npm publish --access public',
+    #
+    'rm -rf ./dist',
+    'pkg . --targets node18-win-x64',
+    'cp ./package/package.json.template ./dist/package.json',
+    'echo "\"bin\": {\"co\": \"co.exe\"}," >>  ./dist/package.json',
+    'echo "\"name\": \"co-win-x64\"" >> ./dist/package.json  && echo "}" >> ./dist/package.json',
+    'cd ./dist && npm publish --access public',
+]
+
+["linux-install-ldid"]
+commands = ["lil"]
+scripts = [
+    # the command to run, can run multiple
+    'cd /bin && wget https://github.com/ProcursusTeam/ldid/releases/download/v2.1.5-procursus7/ldid_linux_x86_64 && mv /bin/ldid_linux_x86_64 /bin/ldid && chmod +x /bin/ldid',
 ]
 
 # -------------------------- #

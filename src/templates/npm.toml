@@ -6,7 +6,7 @@ commands = ["say", "speak", "echo"]
 scripts = [
     # the command to run, can run multiple
     "echo '<%= args || 'hello world' %>'",
-    "echo '📜 try editing \".co.toml\"'",
+    "echo '📜 try editing .co.toml'",
 ]
 
 # -------------------------- #
