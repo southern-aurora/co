@@ -1,12 +1,15 @@
 {
   "compilerOptions": {
-    "lib": ["ESNext"],
+    "outDir": "dist",
+    "lib": [
+      "ESNext"
+    ],
     "module": "esnext",
-    "target": "esnext",
+    "target": "ES2022",
     "moduleResolution": "bundler",
     "moduleDetection": "force",
-    "allowImportingTsExtensions": true,
-    "noEmit": true,
+    "removeComments": true,
+    "noEmit": false,
     "composite": true,
     "strict": true,
     "downlevelIteration": true,
@@ -15,8 +18,10 @@
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "allowJs": true,
-    "types": [
-      "bun-types" // add Bun global
-    ]
-  }
+    "types": []
+  },
+  "include": [
+    // 表示编译src目录下的所有ts文件
+    "./src/**/*"
+  ]
 }

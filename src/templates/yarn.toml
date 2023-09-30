@@ -1,0 +1,62 @@
+# -------------------------- #
+#      Project Commands      #
+# -------------------------- #
+["say"]
+commands = ["say", "speak", "echo"]
+scripts = [
+    # the command to run, can run multiple
+    "echo '<%= args || 'hello world' %>'",
+    "echo '📜 try editing \".co.toml\"'",
+]
+
+# -------------------------- #
+#  Package Manager Commands  #
+# -------------------------- #
+["install"]
+commands = ["install", "i", "add", "a"]
+scripts = [
+    # the command to run, can run multiple
+    '<% if (argsArr.length === 0) { %>yarn install<% } else { %>yarn add <%= args %><% } %>',
+]
+
+["install (dev)"]
+commands = ["install:dev", "i:d", "add:dev", "a:d"]
+scripts = [
+    # the command to run, can run multiple
+    'yarn add --dev <%= args %>',
+]
+
+["install (global)"]
+commands = ["install:global", "i:g", "add:global", "a:g"]
+scripts = [
+    # the command to run, can run multiple
+    'yarn global add <%= args %>',
+]
+
+["update"]
+commands = ["update", "up", "upgrade"]
+scripts = [
+    # the command to run, can run multiple
+    'yarn upgrade',
+]
+
+["uninstall"]
+commands = ["uninstall", "un", "remove", "rm"]
+scripts = [
+    # the command to run, can run multiple
+    'yarn remove <%= args %>',
+]
+
+["run"]
+commands = ["run", "r"]
+scripts = [
+    # the command to run, can run multiple
+    'yarn run <%= args %>',
+]
+
+["execute"]
+commands = ["execute", "x"]
+scripts = [
+    # the command to run, can run multiple
+    'yarn dlx <%= args %>',
+]
