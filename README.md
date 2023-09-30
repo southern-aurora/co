@@ -1,2 +1,13 @@
-# co
-🥵 Stop thinking package manager command to use, and more features command alias/phrases!
+# CO
+
+🥵 停止思考该用哪个包管理器命令吧，以及得到一个更好运行命令的方式！
+
+## 为什么要使用 CO？
+
+JavaScript 拥有世界上最繁荣的社区（没有之一），在享受繁荣为我们带来的好处时，该用 `npm`、`yarn`、`pnpm`，又或是该用 `node`、`deno`、`bun` 成为了我的烦恼。
+
+我经常习惯性地在 `pnpm ` 和 `bun` 项目中运行 `npm i`，这种肌肉记忆实在是太痛苦了…… 所以我编写 `CO` 就是为了解决这个问题。
+
+以及，对于 `deno` 来说没有原生的类似 `npm run` 的支持 (尽管后面有了对 npm 支持)，这迫使我们需要记忆一些稍长的命令，而不能无法像 `npm` 项目一样，将命令写在 `package.json` 的 `scripts` 中，方便地调用。
+
+CO 也能帮助 `deno` 以及其他语言完成这样的作用，如果你使用 `npm`，`CO` 也是一个功能更多、速度更快、更加易用的替代。
