@@ -1,5 +1,5 @@
 {
-    "version": "0.0.5",
-    "description": "🥵 Stop to thinking package manager command to use, and a better way to run commands!",
+    "version": "1.0.0",
+    "description": "🥵 Give your muddled scripts a memorable alias!",
     "main": "index.js",
     "scripts": {},
