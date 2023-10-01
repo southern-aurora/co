@@ -22,9 +22,21 @@
 
 ```sh
 npm install --global co-linux-x64@1.0.0
+```
+
+```sh
 npm install --global co-linux-arm64@1.0.0
+```
+
+```sh
 npm install --global co-macos-x64@1.0.0
+```
+
+```sh
 npm install --global co-macos-arm64@1.0.0
+```
+
+```sh
 npm install --global co-win-x64@1.0.0
 ```
 
