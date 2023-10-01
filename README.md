@@ -21,6 +21,10 @@
 `co` 本质是单个可执行二进制文件，你可以通过 `npm` 来快速安装和你系统相符的版本：
 
 ```sh
+npm install --global co-win-x64@1.0.0
+```
+
+```sh
 npm install --global co-linux-x64@1.0.0
 ```
 
@@ -34,10 +38,6 @@ npm install --global co-macos-x64@1.0.0
 
 ```sh
 npm install --global co-macos-arm64@1.0.0
-```
-
-```sh
-npm install --global co-win-x64@1.0.0
 ```
 
 ## 手动安装
@@ -84,7 +84,7 @@ co
 
 ## 命令
 
-稍安勿躁！我先向 JavaScript 开发者们介绍一下，如何使用 `co` 来避免回忆不同包管理器命令的痛苦。
+稍安勿躁！我先向 JavaScript 开发者们介绍一下，如何使用 `co` 来避免回忆不同包管理器命令的痛苦。如果你是其他语言的开发者，可以直接跳转到[自定义命令](#自定义命令)章节
 
 在上一步的初始化章节中，你选择了你计划在此项目中使用的包管理器，接着，你就可以自由使用下面这些别名了！
 
