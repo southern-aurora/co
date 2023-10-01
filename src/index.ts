@@ -1,7 +1,7 @@
 import { argv, cwd, exit, platform, stdout } from "node:process";
 import { readFile, writeFile } from "node:fs/promises";
-import { existsSync } from "node:fs";
-import { join } from "node:path";
+import { existsSync, readFileSync } from "node:fs";
+import { join, resolve } from "node:path";
 import Enquirer from "enquirer";
 import shelljs from "shelljs";
 import C from "ansi-colors";
@@ -9,13 +9,17 @@ import toml from "toml";
 import template from "ejs";
 
 (async function () {
+  if (existsSync(join(process.env.HOME || process.env.USERPROFILE!, `.co.toml`)) === false) {
+    await writeFile(join(process.env.HOME || process.env.USERPROFILE!, `.co.toml`), "# your global config here\n");
+  }
+
   const paths = {
     workdir: cwd(),
     config: join(cwd(), ".co.toml"),
   };
   const args = argv.slice(2);
 
-  if (existsSync(paths.config) === false) {
+  if (existsSync(paths.config) === false && args.length === 0) {
     console.clear();
     console.log(`🍫 Hi! It looks like you are using ${C.bgYellowBright("co")} here for the first time!😇 (".co.toml" does not exist)`);
     console.log(`➖ Path: ${C.underline(paths.workdir)}`);
@@ -80,7 +84,52 @@ import template from "ejs";
     exit(0);
   }
 
-  const config = toml.parse(await readFile(paths.config, "utf-8"));
+  if (existsSync(paths.config) === false && args.length > 0) {
+    paths.config = join(process.env.HOME || process.env.USERPROFILE!, `.co.toml`);
+  }
+
+  let config = toml.parse(await readFile(paths.config, "utf-8"));
+  if (config.general) {
+    if (config.general.mixins && config.general.mixins.length > 0) {
+      for (const mixin of config.general.mixins) {
+        if (!mixin) continue;
+        if (mixin.startsWith("co:")) {
+          const tobeMixinConfig = toml.parse(await readFile(join(__dirname, "internals", `${mixin.substr(3)}.toml`), "utf-8"));
+          config = {
+            ...tobeMixinConfig,
+            ...config,
+          };
+        } else {
+          let mx = mixin;
+          if (mx.startsWith("./") || mx.startsWith(".\\")) {
+            mx = join(paths.workdir, mx.substr(2));
+          } else if (mx.startsWith("~/") || mx.startsWith("~\\")) {
+            mx = join(process.env.HOME || process.env.USERPROFILE!, mx.substr(2));
+          } else if (mx.startsWith("/")) {
+            mx = resolve(mx);
+          } else {
+            console.log(
+              `${C.bgRedBright(`🍫 General error `)} The "${mixin}" is not a valid path, must start with './' or '~/' or '/' or 'co:'`
+            );
+            exit(1);
+          }
+          if (existsSync(mx)) {
+            const tobeMixinConfig = toml.parse(await readFile(mx, "utf-8"));
+            if (tobeMixinConfig.general) {
+              console.log(
+                `${C.bgRedBright(`🍫 General error `)} ["general"] can only be written in ".co.toml", but it was discovered in "${mixin}".`
+              );
+              exit(1);
+            }
+            config = {
+              ...tobeMixinConfig,
+              ...config,
+            };
+          }
+        }
+      }
+    }
+  }
 
   if (args.length === 0) {
     args.push("default");
@@ -125,6 +174,24 @@ import template from "ejs";
   const variables = {
     args: args.slice(1).join(" "),
     argsArr: args.slice(1),
+    loadNodeModuleBin: (pkg: string, cmd: string) => {
+      const modulesPath = join(paths.workdir, "node_modules", pkg);
+      if (existsSync(modulesPath) === false) {
+        console.log(`${C.bgRedBright(`🍫 Script error `)} "${pkg}" is not installed in the local node_modules.`);
+        exit(1);
+      }
+      const packageJson = JSON.parse(readFileSync(join(modulesPath, "package.json"), "utf-8"));
+      if (packageJson.bin[cmd]) {
+        return join(modulesPath, packageJson.bin[cmd]);
+      }
+
+      console.log(
+        `${C.bgRedBright(
+          `🍫 Script error `
+        )} "${cmd}" does not exist in module "${pkg}". Attempt to check the "${cmd}" of package. json in "${pkg}", does it really exist?`
+      );
+      exit(1);
+    },
   };
 
   // START: Bun currently has a bug, which may result in the loss of the first line of output for the first self process. This code is meaningless and is only used to avoid this bug

@@ -1,0 +1,48 @@
+["install"]
+commands = ["install", "i", "add", "a"]
+scripts = [
+    # the command to run, can run multiple
+    '<% if (argsArr.length === 0) { %>pnpm install<% } else { %>pnpm add <%= args %><% } %>',
+]
+
+["install (dev)"]
+commands = ["install:dev", "i:d", "add:dev", "a:d"]
+scripts = [
+    # the command to run, can run multiple
+    'pnpm add --dev <%= args %>',
+]
+
+["install (global)"]
+commands = ["install:global", "i:g", "add:global", "a:g"]
+scripts = [
+    # the command to run, can run multiple
+    'pnpm add --global <%= args %>',
+]
+
+["update"]
+commands = ["update", "up", "upgrade"]
+scripts = [
+    # the command to run, can run multiple
+    'pnpm update',
+]
+
+["uninstall"]
+commands = ["uninstall", "un", "remove", "rm"]
+scripts = [
+    # the command to run, can run multiple
+    'pnpm remove <%= args %>',
+]
+
+["run"]
+commands = ["run", "r"]
+scripts = [
+    # the command to run, can run multiple
+    'pnpm run <%= args %>',
+]
+
+["execute"]
+commands = ["execute", "x"]
+scripts = [
+    # the command to run, can run multiple
+    'pnpm dlx <%= args %>',
+]

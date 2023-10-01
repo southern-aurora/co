@@ -1,6 +1,6 @@
-# -------------------------- #
-#      Project Commands      #
-# -------------------------- #
+["general"]
+mixins = ["~/.co.toml"]
+
 ["say"]
 commands = ["say", "speak", "echo"]
 scripts = [

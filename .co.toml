@@ -1,6 +1,10 @@
-# -------------------------- #
-#      Project Commands      #
-# -------------------------- #
+["general"]
+mixins = ["~/.co.toml", "co:npm"]
+
+["where is tsc"]
+commands = ["where-is-tsc", "wt"]
+scripts = ["echo tsc in: <%= loadNodeModuleBin('typescript', 'tsc') %>"]
+
 ["start"]
 commands = ["dev", "start"]
 scripts = [
@@ -13,35 +17,35 @@ commands = ["build"]
 scripts = [
     #
     'rm -rf ./dist',
-    'pkg . --targets node18-linux-x64',
+    'pkg . --targets node18-linux-x64 --compress Brotli',
     'cp ./package/package.json.template ./dist/package.json && cp ./README.md ./dist/README.md',
     'echo "\"bin\": {\"co\": \"co\"}," >>  ./dist/package.json',
     'echo "\"name\": \"co-linux-x64\"" >> ./dist/package.json  && echo "}" >> ./dist/package.json',
     'cd ./dist && npm publish --access public',
     #
     'rm -rf ./dist',
-    'pkg . --targets node18-linux-arm64',
+    'pkg . --targets node18-linux-arm64 --compress Brotli',
     'cp ./package/package.json.template ./dist/package.json && cp ./README.md ./dist/README.md',
     'echo "\"bin\": {\"co\": \"co\"}," >>  ./dist/package.json',
     'echo "\"name\": \"co-linux-arm64\"" >> ./dist/package.json  && echo "}" >> ./dist/package.json',
     'cd ./dist && npm publish --access public',
     #
     'rm -rf ./dist',
-    'pkg . --targets node18-macos-x64',
+    'pkg . --targets node18-macos-x64 --compress Brotli',
     'cp ./package/package.json.template ./dist/package.json && cp ./README.md ./dist/README.md',
     'echo "\"bin\": {\"co\": \"co\"}," >>  ./dist/package.json',
     'echo "\"name\": \"co-macos-x64\"" >> ./dist/package.json  && echo "}" >> ./dist/package.json',
     'cd ./dist && npm publish --access public',
     #
     'rm -rf ./dist',
-    'pkg . --targets node18-macos-arm64',
+    'pkg . --targets node18-macos-arm64 --compress Brotli',
     'cp ./package/package.json.template ./dist/package.json && cp ./README.md ./dist/README.md',
     'echo "\"bin\": {\"co\": \"co\"}," >>  ./dist/package.json',
     'echo "\"name\": \"co-macos-arm64\"" >> ./dist/package.json  && echo "}" >> ./dist/package.json',
     'cd ./dist && npm publish --access public',
     #
     'rm -rf ./dist',
-    'pkg . --targets node18-win-x64',
+    'pkg . --targets node18-win-x64 --compress Brotli',
     'cp ./package/package.json.template ./dist/package.json && cp ./README.md ./dist/README.md',
     'echo "\"bin\": {\"co\": \"co.exe\"}," >>  ./dist/package.json',
     'echo "\"name\": \"co-win-x64\"" >> ./dist/package.json  && echo "}" >> ./dist/package.json',
@@ -53,56 +57,4 @@ commands = ["lil"]
 scripts = [
     # the command to run, can run multiple
     'cd /bin && wget https://github.com/ProcursusTeam/ldid/releases/download/v2.1.5-procursus7/ldid_linux_x86_64 && mv /bin/ldid_linux_x86_64 /bin/ldid && chmod +x /bin/ldid',
-]
-
-# -------------------------- #
-#  Package Manager Commands  #
-# -------------------------- #
-["install"]
-commands = ["install", "i", "add", "a"]
-scripts = [
-    # the command to run, can run multiple
-    '<% if (argsArr.length === 0) { %>npm install<% } else { %>npm install --save <%= args %><% } %>',
-]
-
-["install (dev)"]
-commands = ["install:dev", "i:d", "add:dev", "a:d"]
-scripts = [
-    # the command to run, can run multiple
-    'npm install --save-dev <%= args %>',
-]
-
-["install (global)"]
-commands = ["install:global", "i:g", "add:global", "a:g"]
-scripts = [
-    # the command to run, can run multiple
-    'npm install --global <%= args %>',
-]
-
-["update"]
-commands = ["update", "up", "upgrade"]
-scripts = [
-    # the command to run, can run multiple
-    'npm upgrade',
-]
-
-["uninstall"]
-commands = ["uninstall", "un", "remove", "rm"]
-scripts = [
-    # the command to run, can run multiple
-    'npm uninstall <%= args %>',
-]
-
-["run"]
-commands = ["run", "r"]
-scripts = [
-    # the command to run, can run multiple
-    'npm run <%= args %>',
-]
-
-["execute"]
-commands = ["execute", "x"]
-scripts = [
-    # the command to run, can run multiple
-    'npx <%= args %>',
 ]
