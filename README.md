@@ -115,11 +115,19 @@ co a:g eslint
 
 对应 npm 命令：`npm run`
 
+```sh
+co r dev
+```
+
 ### 执行 (npx)
 
 别名：`execute`, `x`
 
 对应 npm 命令：`npx`
+
+```sh
+co x prisma
+```
 
 ### 安装 (安装依赖)
 
@@ -127,11 +135,19 @@ co a:g eslint
 
 对应 npm 命令：`npm install`
 
+```sh
+co i
+```
+
 ### 安装一个包
 
 别名：`install`, `i`, `add`, `a`
 
 对应 npm 命令：`npm install --save`
+
+```sh
+co i lodash
+```
 
 ### 安装一个包 (至开发环境)
 
@@ -139,11 +155,19 @@ co a:g eslint
 
 对应 npm 命令：`npm install --save-dev`
 
+```sh
+co i:d typescript
+```
+
 ### 安装一个包 (至全局)
 
 别名：`install:global`, `i:g`, `add:global`, `a:g`
 
 对应 npm 命令：`npm install --global`
+
+```sh
+co i:g typescript
+```
 
 ### 更新依赖
 
@@ -151,11 +175,19 @@ co a:g eslint
 
 对应 npm 命令：`npm upgrade`
 
+```sh
+co up
+```
+
 ### 卸载一个包
 
 别名：`uninstall`, `un`, `remove`, `rm`
 
 对应 npm 命令：`npm uninstall`
+
+```sh
+co rm jquery
+```
 
 ## 自定义命令
 
