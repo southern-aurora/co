@@ -1,6 +1,10 @@
 ["general"]
 mixins = ["~/.co.toml", "co:npm"]
 
+["test"]
+commands = ["test"]
+scripts = ["read  name && echo \"hello $name,welcome to my program\""]
+
 ["where is tsc"]
 commands = ["where-is-tsc", "wt"]
 scripts = ["echo tsc in: <%= loadNodeModuleBin('typescript', 'tsc') %>"]

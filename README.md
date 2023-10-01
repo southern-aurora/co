@@ -18,26 +18,26 @@
 
 ## 自动安装
 
-`co` 本质是单个可执行二进制文件，你可以通过 `npm` 来快速安装和你系统相符的版本：
+`co` 本质是单个可执行二进制文件，你可以通过 `npm` 来快速安装和你系统与 CPU 类型相符的版本：
 
 ```sh
-npm install --global co-win-x64@1.0.0
+npm install --global co-win-x64@1.2.0
 ```
 
 ```sh
-npm install --global co-linux-x64@1.0.0
+npm install --global co-linux-x64@1.2.0
 ```
 
 ```sh
-npm install --global co-linux-arm64@1.0.0
+npm install --global co-linux-arm64@1.2.0
 ```
 
 ```sh
-npm install --global co-macos-x64@1.0.0
+npm install --global co-macos-x64@1.2.0
 ```
 
 ```sh
-npm install --global co-macos-arm64@1.0.0
+npm install --global co-macos-arm64@1.2.0
 ```
 
 ## 手动安装
@@ -48,8 +48,8 @@ npm install --global co-macos-arm64@1.0.0
 
 ```sh
 cd /tmp \
-&& wget "https://cdn.npmmirror.com/packages/co-linux-x64/1.0.0/co-linux-x64-1.0.0.tgz" \
-&& tar -xzf co-linux-x64-1.0.0.tgz \
+&& wget "https://cdn.npmmirror.com/packages/co-linux-x64/1.2.0/co-linux-x64-1.2.0.tgz" \
+&& tar -xzf co-linux-x64-1.2.0.tgz \
 && mv /tmp/package/co /usr/bin/co \
 && chmod 777 /usr/bin/co
 ```
@@ -325,17 +325,6 @@ scripts = [
     <% } %>
     '''
 ]
-```
-
-### Shell
-
-你可以通过 `shell` 中指定脚本所使用的 `shell`，默认使用 `bash`，在 Windows 下默认使用 `powershell.exe`。
-
-```toml
-["ls"]
-shell = "sh"
-commands = ["ls"]
-scripts = ["ls"]
 ```
 
 ### Mixins

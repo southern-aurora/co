@@ -6,7 +6,7 @@
     ],
     "module": "esnext",
     "target": "ES2022",
-    "moduleResolution": "bundler",
+    "moduleResolution": "node",
     "moduleDetection": "force",
     "removeComments": true,
     "noEmit": false,
@@ -18,7 +18,9 @@
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "allowJs": true,
-    "types": []
+    "types": [
+      "node"
+    ]
   },
   "include": [
     // 表示编译src目录下的所有ts文件

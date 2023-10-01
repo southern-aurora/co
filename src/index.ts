@@ -1,9 +1,9 @@
 import { argv, cwd, exit, platform, stdout } from "node:process";
 import { readFile, writeFile } from "node:fs/promises";
 import { existsSync, readFileSync } from "node:fs";
+import child_process from "node:child_process";
 import { join, resolve } from "node:path";
 import Enquirer from "enquirer";
-import shelljs from "shelljs";
 import C from "ansi-colors";
 import toml from "toml";
 import template from "ejs";
@@ -159,7 +159,7 @@ import template from "ejs";
   }
 
   if (task === undefined) {
-    console.log(`${C.bgRedBright(`🍫 Script error `)} The Command not found.`);
+    console.log(`${C.bgRedBright(`🍫 Command error `)} The Command not found.`);
     console.log(`➖ Docs: ${C.underline(`https://github.com/akirarika/co`)}`);
     console.log(`➖ Config: ${C.underline(paths.config)}`);
     exit(0);
@@ -168,7 +168,6 @@ import template from "ejs";
   console.log(`😸 Command running on ${C.underline(paths.workdir)}\n`);
 
   const scripts = task.scripts as Array<string>;
-  const shell = task.shell || (platform === "win32" ? "powershell.exe" : "bash");
   const env = task.env || {};
 
   const variables = {
@@ -194,29 +193,6 @@ import template from "ejs";
     },
   };
 
-  // START: Bun currently has a bug, which may result in the loss of the first line of output for the first self process. This code is meaningless and is only used to avoid this bug
-  // try {
-  //   await new Promise<number | null>((resolve) => {
-  //     const child = shelljs.exec("echo -n ''", {
-  //       async: true,
-  //       fatal: false,
-  //       silent: true,
-  //       encoding: "utf8",
-  //       shell: platform === "win32" ? "powershell.exe" : "bash",
-  //       env: {
-  //         ...process.env,
-  //         ...env,
-  //       },
-  //     });
-
-  //     child.stdout!.on("data", (data) => data);
-  //     child.stdout!.once("end", () => {
-  //       setTimeout(() => resolve(child.exitCode), 64);
-  //     });
-  //   });
-  // } catch (error) {}
-  // END: Bun currently has a bug, which may result in the loss of the first line of output for the first self process. This code is meaningless and is only used to avoid this bug
-
   for (const rawscript of scripts) {
     let script: string;
 
@@ -235,34 +211,19 @@ import template from "ejs";
     }
     console.log(`${C.bgBlackBright(`🍫 Run script `)} ${C.whiteBright(script)}`);
 
-    const exitCode = await new Promise<number | null>((resolve) => {
-      const child = shelljs.exec(script, {
-        async: true,
-        fatal: false,
-        silent: true,
-        encoding: "utf8",
-        shell: shell,
-        env: {
-          ...process.env,
-          ...env,
-        },
-      });
-
-      child.stdout!.on("data", (data) => {
-        stdout.write(data);
-      });
-      child.stderr!.on("data", (data) => {
-        stdout.write(data);
-      });
-      child.stdout!.once("end", () => {
-        setTimeout(() => resolve(child.exitCode), 64);
-      });
-    });
-    if (exitCode !== 0) {
-      console.log(`${C.bgRedBright(`🍫 Script error `)} exited with code ${exitCode}.`);
-      exit(exitCode || 1);
+    try {
+      if (platform !== "win32") {
+        child_process.execFileSync("bash", ["-c", script], { stdio: "inherit" });
+      } else {
+        child_process.execFileSync("powershell.exe", ["-Command", script], { stdio: "inherit" });
+      }
+    } catch (error: any) {
+      console.log(`${C.bgRedBright(`🍫 Script error `)} exited with code ${error?.status}.`);
+      exit(error?.status);
     }
     console.log("");
-    //   console.log(child);
   }
-})();
+})().catch((error) => {
+  console.log(`${C.bgRedBright(`🍫 Script error `)} ${error.message}`);
+  exit(1);
+});
