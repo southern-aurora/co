@@ -412,13 +412,13 @@ scripts = [
 ]
 ```
 
-Note that in the above code example, three consecutive quotation marks `'''`` are used to represent a multi-line string, which is the syntax of TOML.
+Note that in the above code example, three consecutive quotation marks `'''` are used to represent a multi-line string, which is the syntax of TOML.
 
 注意，以上代码示例中，使用了三个连续的引号 `'''` 代表多行字符串，这是 TOML 的语法。
 
-The `co` it will automatically help you delete **all newlines**. Therefore, you don't need to worry about these newlines affecting the execution of your script.
+`co` will automatically remove **all newlines** and remove spaces in front of each line. When you write a script, you don't need to worry about the impact of line breaks and spaces, you can wrap lines freely.
 
-`co` 会自动帮助你在每行末尾添加空格，并删掉**所有的换行**。你在编写脚本时，不需要担心换行符的影响。
+`co` 会自动删掉**所有的换行**，并删除每行前面的空格。你在编写脚本时，不需要担心换行符和空格的影响，可以自由换行。
 
 ### Script built-in methods / 脚本内置方法
 
