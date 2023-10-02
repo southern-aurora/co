@@ -202,7 +202,7 @@ import template from "ejs";
         ...env,
         ...variables,
       });
-      script.replace(/\r?\n/g, "").trim();
+      script.replace(/\r?\n/g, " ").trim();
     } catch (error: any) {
       console.log(
         `${C.bgRedBright(`🍫 Script error `)} Script parsing errors, usually due to using incorrect syntax or non-existent variables.\n`
@@ -214,6 +214,8 @@ import template from "ejs";
 
     try {
       if (platform !== "win32") {
+        script = '$ErrorActionPreference = "Stop";' + script;
+        script.replace(/&&/g, ";");
         child_process.execFileSync("bash", ["-c", script], { stdio: "inherit" });
       } else {
         child_process.execFileSync("powershell.exe", ["-Command", script], { stdio: "inherit" });

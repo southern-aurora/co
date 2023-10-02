@@ -440,9 +440,9 @@ Note that in the above code example, three consecutive quotation marks `'''`` ar
 
 The `co` it will automatically help you delete **all newlines**. Therefore, you don't need to worry about these newlines affecting the execution of your script.
 
-`co` 会自动帮助你删掉**所有的换行**。因此，你不需要担心这些换行符会影响到你的脚本运行。
+`co` 会自动帮助你在每行末尾添加空格，并删掉**所有的换行**。你在编写脚本时，不需要担心换行符的影响。
 
-### Should you use template syntax? / 该使用目标语法吗？
+### Should you use template syntax? / 该使用模板语法吗？
 
 The reason why template syntax is introduced in `co` is to make the configuration compatible with multiple platforms as much as possible. If some people in your team use Mac and some use Windows, this will be a headache.
 
@@ -459,6 +459,22 @@ But template syntax is not the best choice. It has no highlighting, no code prom
 If you think that the script logic you want to write is too complicated to use template syntax, please consider whether to use the script language you are familiar with to write the script, and then execute the script through `co`.
 
 如果你认为所要编写的脚步逻辑复杂到了使用模板语法感到吃力的情况时，请考虑是否使用你熟悉的脚本语言来编写脚本，然后通过 `co` 来执行这个脚本。
+
+### PowerShell 兼容
+
+我们通常希望命令在遇到错误时自动停止，且在一条脚本中运行多条命令。因此，我们经常编写这样的脚本：
+
+```sh
+cd ~ && cd .ssh && cat id_rsa.pub
+```
+
+但在 PowerShell 中，命令遇到错误将不会停止，且不可以使用 `&&` 符号来运行多条连续的命令。
+
+而在 `co` 中，自动对这种情况做了兼容处理。如果你在 Windows 下的 `co` 中，原封不动地执行上面的脚本，那么将正常工作。它实际上会被转换成下面的命令来执行：
+
+```sh
+$ErrorActionPreference = "Stop" ; cd ~ ; cd .ssh ; cat id_rsa.pub
+```
 
 ### Mixins
 
