@@ -74,6 +74,18 @@ cd /tmp \
 && chmod 777 /usr/bin/co
 ```
 
+For Mac users, the operation is similar to Linux users, but slightly different, and the downloaded version is macos-x64 or macos-arm64.
+
+对于 Mac 用户，操作和 Linux 用户类似，只是略有不同，且下载的是 macos-x64 或 macos-arm64 版本。
+
+If you are using Windows, you can set `C:\` to `PATH` with the following command. This way, you can run any executable file, including `co.exe`, directly from the command line by placing it in `C:\`. Note: You need to use `PowerShell` to run, do not use `CMD`.
+
+如果你使用 Windows 的话，可以通过以下命令将 `C:\` 设置到 `PATH` 中。这样的话，你将任何可执行文件，包括 `co.exe` 放到 `C:\` 中，就可以直接在命令行中运行它们。注意：需要使用 `PowerShell` 运行，不要使用 `CMD`。
+
+```ps1
+[environment]::SetEnvironmentvariable("PATH", "$([environment]::GetEnvironmentvariable("Path", "Machine"));C:\", "Machine");
+```
+
 ## Uninstall / 卸载
 
 If you installed via `npm`, you can uninstall with the following command:
