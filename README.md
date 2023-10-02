@@ -388,6 +388,38 @@ scripts = [
 ]
 ```
 
+### Insert JavaScript into script / 脚本中插入 JavaScript
+
+You can even write JavaScript code directly in it to achieve process control.
+
+你甚至可以直接在里面编写 JavaScript 代码，实现流程控制。
+
+The code between `<% %>` will be executed, and the code between `<%= %>` will be output.
+
+`<% %>` 之间的代码将会被执行，而 `<%= %>` 之间的代码将会被输出。
+
+```toml
+["say"]
+commands = ["say", "speak", "echo"]
+scripts = [
+    '''
+    <% if (new Date().getHours() > 12) {%>
+        echo '☀️Good morning!'
+    <% } else {%>
+        echo '🌖Good afternoon!'
+    <% } %>
+    '''
+]
+```
+
+Note that in the above code example, three consecutive quotation marks `'''`` are used to represent a multi-line string, which is the syntax of TOML.
+
+注意，以上代码示例中，使用了三个连续的引号 `'''` 代表多行字符串，这是 TOML 的语法。
+
+The `co` it will automatically help you delete **all newlines**. Therefore, you don't need to worry about these newlines affecting the execution of your script.
+
+`co` 会自动帮助你在每行末尾添加空格，并删掉**所有的换行**。你在编写脚本时，不需要担心换行符的影响。
+
 ### Script built-in methods / 脚本内置方法
 
 #### loadNodeModuleBin
@@ -510,38 +542,6 @@ scripts = [
     '''
 ]
 ```
-
-### Insert JavaScript into script / 脚本中插入 JavaScript
-
-You can even write JavaScript code directly in it to achieve process control.
-
-你甚至可以直接在里面编写 JavaScript 代码，实现流程控制。
-
-The code between `<% %>` will be executed, and the code between `<%= %>` will be output.
-
-`<% %>` 之间的代码将会被执行，而 `<%= %>` 之间的代码将会被输出。
-
-```toml
-["say"]
-commands = ["say", "speak", "echo"]
-scripts = [
-    '''
-    <% if (new Date().getHours() > 12) {%>
-        echo '☀️Good morning!'
-    <% } else {%>
-        echo '🌖Good afternoon!'
-    <% } %>
-    '''
-]
-```
-
-Note that in the above code example, three consecutive quotation marks `'''`` are used to represent a multi-line string, which is the syntax of TOML.
-
-注意，以上代码示例中，使用了三个连续的引号 `'''` 代表多行字符串，这是 TOML 的语法。
-
-The `co` it will automatically help you delete **all newlines**. Therefore, you don't need to worry about these newlines affecting the execution of your script.
-
-`co` 会自动帮助你在每行末尾添加空格，并删掉**所有的换行**。你在编写脚本时，不需要担心换行符的影响。
 
 ### Should you use template syntax? / 该使用模板语法吗？
 
