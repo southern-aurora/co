@@ -404,7 +404,7 @@ The code between `<% %>` will be executed, and the code between `<%= %>` will be
 
 `<% %>` 之间的代码将会被执行，而 `<%= %>` 之间的代码将会被输出。
 
-(Three consecutive quotes `''''` represent a multi-line string, which is the syntax of TOML)
+(Three consecutive quotes `'''` represent a multi-line string, which is the syntax of TOML)
 
 (三个连续的引号 `'''` 代表多行字符串，这是 TOML 的语法)
 
