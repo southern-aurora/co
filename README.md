@@ -37,23 +37,23 @@ For `deno` and other languages, they do not have similar command alias support, 
 `co` 本质是单个可执行二进制文件，你可以通过 `npm` 来快速安装和你系统与 CPU 类型相符的版本：
 
 ```sh
-npm install --global co-win-x64@1.5.0
+npm install --global co-win-x64@1.5.1
 ```
 
 ```sh
-npm install --global co-linux-x64@1.5.0
+npm install --global co-linux-x64@1.5.1
 ```
 
 ```sh
-npm install --global co-linux-arm64@1.5.0
+npm install --global co-linux-arm64@1.5.1
 ```
 
 ```sh
-npm install --global co-macos-x64@1.5.0
+npm install --global co-macos-x64@1.5.1
 ```
 
 ```sh
-npm install --global co-macos-arm64@1.5.0
+npm install --global co-macos-arm64@1.5.1
 ```
 
 ## Manual install / 手动安装
@@ -68,8 +68,8 @@ For example, for Linux users, you can download and install with the following co
 
 ```sh
 cd /tmp \
-&& wget "https://cdn.npmmirror.com/packages/co-linux-x64/1.5.0/co-linux-x64-1.5.0.tgz" \
-&& tar -xzf co-linux-x64-1.5.0.tgz \
+&& wget "https://cdn.npmmirror.com/packages/co-linux-x64/1.5.1/co-linux-x64-1.5.1.tgz" \
+&& tar -xzf co-linux-x64-1.5.1.tgz \
 && mv /tmp/package/co /usr/bin/co \
 && chmod 777 /usr/bin/co
 ```
@@ -376,9 +376,9 @@ scripts = [
 
 ### Insert expression into script / 脚本中插入表达式
 
-The script runs in a JavaScript environment, so it supports any JavaScript expression. For example, you can output good morning or good afternoon depending on the time:
+The script runs in a JavaScript (NodeJs) environment, so it supports any JavaScript expression. For example, you can output good morning or good afternoon depending on the time:
 
-脚本运行在 JavaScript 环境中，因此支持任何 JavaScript 表达式，例如，你可以根据时间不同，来输出上午好或下午好：
+脚本运行在 JavaScript (NodeJs) 环境中，因此支持任何 JavaScript 表达式，例如，你可以根据时间不同，来输出上午好或下午好：
 
 ```toml
 ["say"]
