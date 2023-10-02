@@ -14,8 +14,6 @@ import template from "ejs";
     await writeFile(join(process.env.HOME || process.env.USERPROFILE!, `.co.toml`), "# your global config here\n");
   }
 
-  await new Promise((resolve) => setTimeout(() => resolve(undefined), 1000));
-
   const paths = {
     workdir: cwd(),
     config: join(cwd(), ".co.toml"),
