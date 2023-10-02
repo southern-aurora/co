@@ -116,9 +116,9 @@ Eventually, a `.co.toml` file will be created for you.
 
 ## Commands / 命令
 
-Be patient! I'll start by showing JavaScript developers how to use `co` to avoid the pain of remembering different package manager commands. If you are a developer of other languages, you can jump directly to the [Custom_Command](#Custom_Command) chapter
+Be patient! I'll start by showing JavaScript developers how to use `co` to avoid the pain of remembering different package manager commands. If you are a developer of other languages, you can jump directly to the [Custom_Command](https://github.com/akirarika/co#custom-commands--%E8%87%AA%E5%AE%9A%E4%B9%89%E5%91%BD%E4%BB%A4) chapter
 
-稍安勿躁！我先向 JavaScript 开发者们介绍一下，如何使用 `co` 来避免回忆不同包管理器命令的痛苦。如果你是其他语言的开发者，可以直接跳转到[自定义命令](#自定义命令)章节
+稍安勿躁！我先向 JavaScript 开发者们介绍一下，如何使用 `co` 来避免回忆不同包管理器命令的痛苦。如果你是其他语言的开发者，可以直接跳转到[自定义命令](https://github.com/akirarika/co#custom-commands--%E8%87%AA%E5%AE%9A%E4%B9%89%E5%91%BD%E4%BB%A4)章节
 
 In the initialization section of the previous step, you selected the package manager you planned to use for this project. Then, you are free to use the following commands!
 
