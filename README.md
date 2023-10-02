@@ -462,13 +462,19 @@ If you think that the script logic you want to write is too complicated to use t
 
 ### PowerShell 兼容
 
+We usually want the command to stop automatically when an error is encountered, and to run multiple commands in one script. Therefore, we often write scripts like this:
+
 我们通常希望命令在遇到错误时自动停止，且在一条脚本中运行多条命令。因此，我们经常编写这样的脚本：
 
 ```sh
 cd ~ && cd .ssh && cat id_rsa.pub
 ```
 
+But in PowerShell, the command will not stop when it encounters an error, and the `&&` symbol cannot be used to run multiple consecutive commands.
+
 但在 PowerShell 中，命令遇到错误将不会停止，且不可以使用 `&&` 符号来运行多条连续的命令。
+
+In `co`, this situation is automatically handled for compatibility. If you execute the above script unchanged in `co` under Windows, it will work normally. It will actually be converted into the following command for execution:
 
 而在 `co` 中，自动对这种情况做了兼容处理。如果你在 Windows 下的 `co` 中，原封不动地执行上面的脚本，那么将正常工作。它实际上会被转换成下面的命令来执行：
 
