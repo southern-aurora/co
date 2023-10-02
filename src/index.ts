@@ -3,6 +3,7 @@ import { readFile, writeFile } from "node:fs/promises";
 import { existsSync, readFileSync } from "node:fs";
 import child_process from "node:child_process";
 import { join, resolve } from "node:path";
+import { decode } from "html-entities";
 import Enquirer from "enquirer";
 import C from "ansi-colors";
 import toml from "toml";
@@ -222,6 +223,8 @@ import template from "ejs";
           async: true,
         }
       );
+
+      script = decode(script);
 
       script = script.replace(/\r?\n/g, " ").trim();
     } catch (error: any) {

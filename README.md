@@ -477,13 +477,13 @@ Below are some commonly used demos.
 commands = ["ui"]
 scripts = [
     '''
-    "echo <%= JSON.stringify(
+    echo '<%= JSON.stringify(
             await ui({
             type: "select",
             message: "What fruits do you like?",
             choices: ["Apple", "Banana", "Cherry", "Grape"],
         })
-    ) %>"
+    ) %>'
     '''
 ]
 ```
@@ -497,12 +497,12 @@ scripts = [
 commands = ["ui"]
 scripts = [
     '''
-    "echo <%= JSON.stringify(
+    echo '<%= JSON.stringify(
         await ui({
             type: "confirm",
             message: "This operation is irreversible, are you sure you want to execute it?",
         })
-    ) %>"
+    ) %>'
     '''
 ]
 ```
@@ -516,13 +516,13 @@ scripts = [
 commands = ["ui"]
 scripts = [
     '''
-    "echo <%= JSON.stringify(
+    echo '<%= JSON.stringify(
         await ui({
             type: "input",
             message: 'What is your username?',
             initial: 'jonschlinkert'
         })
-    ) %>"
+    ) %>'
     '''
 ]
 ```
@@ -536,7 +536,7 @@ scripts = [
 commands = ["ui"]
 scripts = [
     '''
-    "echo <%= JSON.stringify(
+    echo '<%= JSON.stringify(
         await ui({
             type: "form",
             message: 'Please provide the following information:',
@@ -546,7 +546,7 @@ scripts = [
                 { name: 'username', message: 'GitHub username', initial: 'jonschlinkert' }
             ]
         })
-    ) %>"
+    ) %>'
     '''
 ]
 ```

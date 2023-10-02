@@ -11,6 +11,24 @@ scripts = [
     'git push gitee',
 ]
 
+["interactive"]
+commands = ["ui"]
+scripts = [
+    '''
+    echo '<%= JSON.stringify(
+        await ui({
+            type: "form",
+            message: 'Please provide the following information:',
+            choices: [
+                { name: 'firstname', message: 'First Name', initial: 'Jon' },
+                { name: 'lastname', message: 'Last Name', initial: 'Schlinkert' },
+                { name: 'username', message: 'GitHub username', initial: 'jonschlinkert' }
+            ]
+        })
+    ) %>'
+    ''',
+]
+
 ["test"]
 commands = ["test"]
 scripts = [
