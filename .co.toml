@@ -1,13 +1,19 @@
 ["general"]
 mixins = ["~/.co.toml", "co:npm"]
 
+["git:push"]
+commands = ["git:push", "g:p"]
+scripts = [
+    # the command to run, can run multiple
+    'git add --all',
+    'git commit -m "update"',
+    'git push origin master',
+    'git push gitee master',
+]
+
 ["test"]
 commands = ["test"]
 scripts = ["read  name && echo \"hello $name,welcome to my program\""]
-
-["where is tsc"]
-commands = ["where-is-tsc", "wt"]
-scripts = ["echo tsc in: <%= loadNodeModuleBin('typescript', 'tsc') %>"]
 
 ["start"]
 commands = ["dev", "start"]

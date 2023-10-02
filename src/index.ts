@@ -202,6 +202,7 @@ import template from "ejs";
         ...env,
         ...variables,
       });
+      script.replace(/\r?\n/g, "").trim();
     } catch (error: any) {
       console.log(
         `${C.bgRedBright(`🍫 Script error `)} Script parsing errors, usually due to using incorrect syntax or non-existent variables.\n`

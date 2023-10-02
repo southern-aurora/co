@@ -420,10 +420,6 @@ The code between `<% %>` will be executed, and the code between `<%= %>` will be
 
 `<% %>` 之间的代码将会被执行，而 `<%= %>` 之间的代码将会被输出。
 
-(Three consecutive quotes `'''` represent a multi-line string, which is the syntax of TOML)
-
-(三个连续的引号 `'''` 代表多行字符串，这是 TOML 的语法)
-
 ```toml
 ["say"]
 commands = ["say", "speak", "echo"]
@@ -437,6 +433,14 @@ scripts = [
     '''
 ]
 ```
+
+Note that in the above code example, three consecutive quotation marks `'''`` are used to represent a multi-line string, which is the syntax of TOML.
+
+注意，以上代码示例中，使用了三个连续的引号 `'''` 代表多行字符串，这是 TOML 的语法。
+
+The `co` it will automatically help you delete **all newlines**. Therefore, you don't need to worry about these newlines affecting the execution of your script.
+
+`co` 会自动帮助你删掉**所有的换行**。因此，你不需要担心这些换行符会影响到你的脚本运行。
 
 ### Should you use template syntax? / 该使用目标语法吗？
 
