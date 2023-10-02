@@ -448,9 +448,9 @@ The reason why template syntax is introduced in `co` is to make the configuratio
 
 在 `co` 中引入模板语法，是为了尽可能地让配置可以兼容多个平台。如果你的团队中有些人用 Mac 而有些人用 Windows，这将会是一件很头疼的事情。
 
-At the same time, in order to improve the expression ability of the script, so that you can write more complex logic in the script. Writing JavaScript code is much simpler than writing shell scripts.
+At the same time, in order to improve the expression ability of the script, so that you can write more complex logic in the script. Writing JavaScript code is much simpler than writing shell scripts. and, can run normally on different systems.
 
-同时，也为了提高脚本的表达能力，让你可以在脚本中编写更加复杂的逻辑。编写 JavaScript 代码，比编写 shell 脚本，要简单得多。
+同时，也为了提高脚本的表达能力，让你可以在脚本中编写更加复杂的逻辑。编写 JavaScript 代码，比编写 shell 脚本，要简单得多，且可以在不同系统下正常运行。
 
 But template syntax is not the best choice. It has no highlighting, no code prompts and syntax checks, which will make you feel uncomfortable when writing complex scripts.
 
@@ -504,6 +504,10 @@ scripts = [
 ```
 
 ### Config presets
+
+Configuration presets are some configurations officially provided by `co`, which can simplify the way you use many commands. Currently, we provide presets for various package managers for JavaScript.
+
+配置预设是 `co` 官方提供的一些配置，它能够简化你使用许多命令的方式。目前，我们为了 JavaScript 的各种包管理器提供了预设。
 
 `mixins` can also load config presets. Confign presets are embedded in the `co` binary file and start with `co:` when used.
 
