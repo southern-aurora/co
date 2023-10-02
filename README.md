@@ -422,6 +422,24 @@ scripts = [
 ]
 ```
 
+### Should you use template syntax? / 该使用目标语法吗？
+
+The reason why template syntax is introduced in `co` is to make the configuration compatible with multiple platforms as much as possible. If some people in your team use Mac and some use Windows, this will be a headache.
+
+在 `co` 中引入模板语法，是为了尽可能地让配置可以兼容多个平台。如果你的团队中有些人用 Mac 而有些人用 Windows，这将会是一件很头疼的事情。
+
+At the same time, in order to improve the expression ability of the script, so that you can write more complex logic in the script. Writing JavaScript code is much simpler than writing shell scripts.
+
+同时，也为了提高脚本的表达能力，让你可以在脚本中编写更加复杂的逻辑。编写 JavaScript 代码，比编写 shell 脚本，要简单得多。
+
+But template syntax is not the best choice. It has no highlighting, no code prompts and syntax checks, which will make you feel uncomfortable when writing complex scripts.
+
+但是模板语法并不是最好的选择，它没有高亮，也没有代码提示和语法检查，这将会让你在编写较复杂的脚本时，感到很不舒服。
+
+If you think that the script logic you want to write is too complicated to use template syntax, please consider whether to use the script language you are familiar with to write the script, and then execute the script through `co`.
+
+如果你认为所要编写的脚步逻辑复杂到了使用模板语法感到吃力的情况时，请考虑是否使用你熟悉的脚本语言来编写脚本，然后通过 `co` 来执行这个脚本。
+
 ### Mixins
 
 You can load other `toml` files through `mixins`. `mixins` commands are always written in a group named `general`.
