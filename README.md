@@ -505,7 +505,7 @@ scripts = [
 
 ### Config presets
 
-Configuration presets are some configurations officially provided by `co`, which can simplify the way you use many commands. Currently, we provide presets for various package managers for JavaScript.
+Config presets are some configs officially provided by `co`, which can simplify the way you use many commands. Currently, we provide presets for various package managers for JavaScript.
 
 配置预设是 `co` 官方提供的一些配置，它能够简化你使用许多命令的方式。目前，我们为了 JavaScript 的各种包管理器提供了预设。
 
