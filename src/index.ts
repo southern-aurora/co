@@ -13,6 +13,8 @@ import template from "ejs";
     await writeFile(join(process.env.HOME || process.env.USERPROFILE!, `.co.toml`), "# your global config here\n");
   }
 
+  await new Promise((resolve) => setTimeout(() => resolve(undefined), 1000));
+
   const paths = {
     workdir: cwd(),
     config: join(cwd(), ".co.toml"),
@@ -170,39 +172,58 @@ import template from "ejs";
   const scripts = task.scripts as Array<string>;
   const env = task.env || {};
 
+  const utilsInteractive = async (data: any) => {
+    data.name = "data";
+    const result: { data: any } = await Enquirer.prompt([data]);
+    return result.data;
+  };
+
+  const utilsLoadNodeModuleBin = (pkg: string, cmd: string) => {
+    const modulesPath = join(paths.workdir, "node_modules", pkg);
+    if (existsSync(modulesPath) === false) {
+      console.log(`${C.bgRedBright(`🍫 Script error `)} "${pkg}" is not installed in the local node_modules.`);
+      exit(1);
+    }
+    const packageJson = JSON.parse(readFileSync(join(modulesPath, "package.json"), "utf-8"));
+    if (packageJson.bin[cmd]) {
+      return join(modulesPath, packageJson.bin[cmd]);
+    }
+
+    console.log(
+      `${C.bgRedBright(
+        `🍫 Script error `
+      )} "${cmd}" does not exist in module "${pkg}". Attempt to check the "${cmd}" of package. json in "${pkg}", does it really exist?`
+    );
+    exit(1);
+  };
+
   const variables = {
     args: args.slice(1).join(" "),
     argsArr: args.slice(1),
-    loadNodeModuleBin: (pkg: string, cmd: string) => {
-      const modulesPath = join(paths.workdir, "node_modules", pkg);
-      if (existsSync(modulesPath) === false) {
-        console.log(`${C.bgRedBright(`🍫 Script error `)} "${pkg}" is not installed in the local node_modules.`);
-        exit(1);
-      }
-      const packageJson = JSON.parse(readFileSync(join(modulesPath, "package.json"), "utf-8"));
-      if (packageJson.bin[cmd]) {
-        return join(modulesPath, packageJson.bin[cmd]);
-      }
-
-      console.log(
-        `${C.bgRedBright(
-          `🍫 Script error `
-        )} "${cmd}" does not exist in module "${pkg}". Attempt to check the "${cmd}" of package. json in "${pkg}", does it really exist?`
-      );
-      exit(1);
-    },
+    ui: utilsInteractive,
+    ia: utilsInteractive,
+    interactive: utilsInteractive,
+    lnb: utilsLoadNodeModuleBin,
+    loadNodeModuleBin: utilsLoadNodeModuleBin,
   };
 
   for (const rawscript of scripts) {
     let script: string;
 
     try {
-      script = template.render(rawscript, {
-        ...process.env,
-        ...env,
-        ...variables,
-      });
-      script.replace(/\r?\n/g, " ").trim();
+      script = await template.render(
+        rawscript,
+        {
+          ...process.env,
+          ...env,
+          ...variables,
+        },
+        {
+          async: true,
+        }
+      );
+
+      script = script.replace(/\r?\n/g, " ").trim();
     } catch (error: any) {
       console.log(
         `${C.bgRedBright(`🍫 Script error `)} Script parsing errors, usually due to using incorrect syntax or non-existent variables.\n`
@@ -210,14 +231,15 @@ import template from "ejs";
       console.log((error?.message || "").split("\n").slice(1).join("\n"));
       exit(1);
     }
-    console.log(`${C.bgBlackBright(`🍫 Run script `)} ${C.whiteBright(script)}`);
 
     try {
       if (platform !== "win32") {
-        script = '$ErrorActionPreference = "Stop";' + script;
-        script.replace(/&&/g, ";");
+        console.log(`${C.bgBlackBright(`🍫 Run script `)} ${C.whiteBright(script)}`);
         child_process.execFileSync("bash", ["-c", script], { stdio: "inherit" });
       } else {
+        script = '$ErrorActionPreference = "Stop";' + script;
+        script.replace(/&&/g, ";");
+        console.log(`${C.bgBlackBright(`🍫 Run script `)} ${C.whiteBright(script)}`);
         child_process.execFileSync("powershell.exe", ["-Command", script], { stdio: "inherit" });
       }
     } catch (error: any) {

@@ -13,7 +13,12 @@ scripts = [
 
 ["test"]
 commands = ["test"]
-scripts = ["read  name && echo \"hello $name,welcome to my program\""]
+scripts = [
+    '''
+    <% await new Promise((resolve) => setTimeout(() => resolve(undefined), 1000)); %>
+    echo "hello $name,welcome to my program"
+    ''',
+]
 
 ["start"]
 commands = ["dev", "start"]

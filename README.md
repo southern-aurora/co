@@ -388,7 +388,15 @@ scripts = [
 ]
 ```
 
-### Execute the local package command in "node_modules" / 执行 node_modules 中的本地包命令
+### Script built-in methods / 脚本内置方法
+
+#### loadNodeModuleBin
+
+Alias: `loadNodeModuleBin`, `lnb`
+
+Execute the local package command in "node_modules"
+
+执行 node_modules 中的本地包命令
 
 When writing JavaScript, we sometimes install packages with commands that we don't want to install globally.
 
@@ -406,7 +414,100 @@ For example, below we write a function to find the path where the `tsc` command 
 ["where is tsc"]
 commands = ["where-is-tsc", "wt"]
 scripts = [
-    "echo tsc in: <%= loadNodeModuleBin('typescript', 'tsc') %>",
+    "echo tsc in: <%= lnb('typescript', 'tsc') %>",
+    # or
+    # "echo tsc in: <%= loadNodeModuleBin('typescript', 'tsc') %>",
+]
+```
+
+#### interactive
+
+Alias: `interactive`, `ui`, `ia`
+
+Accept user input interactively
+
+交互式接受用户输入
+
+It can implement rich interactive functions such as single selection, multi-selection, Y/N, etc. Based on [enquirer](https://github.com/enquirer/enquirer#built-in-prompts), you can view the documentation to learn more.
+
+可以实现单选、多选、Y/N 等丰富的交互式功能，基于 [enquirer](https://github.com/enquirer/enquirer#built-in-prompts)，可以查看文档来了解更多。
+
+Below are some commonly used demos.
+
+下面是一些常用的 Demo。
+
+##### select
+
+```toml
+["interactive"]
+commands = ["ui"]
+scripts = [
+    '''
+    "echo <%= JSON.stringify(
+            await ui({
+            type: "select",
+            message: "What fruits do you like?",
+            choices: ["Apple", "Banana", "Cherry", "Grape"],
+        })
+    ) %>"
+    '''
+]
+```
+
+##### confirm
+
+```toml
+["interactive"]
+commands = ["ui"]
+scripts = [
+    '''
+    "echo <%= JSON.stringify(
+        await ui({
+            type: "confirm",
+            message: "This operation is irreversible, are you sure you want to execute it?",
+        })
+    ) %>"
+    '''
+]
+```
+
+##### input
+
+```toml
+["interactive"]
+commands = ["ui"]
+scripts = [
+    '''
+    "echo <%= JSON.stringify(
+        await ui({
+            type: "input",
+            message: 'What is your username?',
+            initial: 'jonschlinkert'
+        })
+    ) %>"
+    '''
+]
+```
+
+##### form
+
+```toml
+["interactive"]
+commands = ["ui"]
+scripts = [
+    '''
+    "echo <%= JSON.stringify(
+        await ui({
+            type: "form",
+            message: 'Please provide the following information:',
+            choices: [
+                { name: 'firstname', message: 'First Name', initial: 'Jon' },
+                { name: 'lastname', message: 'Last Name', initial: 'Schlinkert' },
+                { name: 'username', message: 'GitHub username', initial: 'jonschlinkert' }
+            ]
+        })
+    ) %>"
+    '''
 ]
 ```
 
