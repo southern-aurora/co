@@ -37,23 +37,23 @@ For `deno` and other languages, they do not have similar command alias support, 
 `co` 本质是单个可执行二进制文件，你可以通过 `npm` 来快速安装和你系统与 CPU 类型相符的版本：
 
 ```sh
-npm install --global co-win-x64@1.2.0
+npm install --global co-win-x64@1.2.1
 ```
 
 ```sh
-npm install --global co-linux-x64@1.2.0
+npm install --global co-linux-x64@1.2.1
 ```
 
 ```sh
-npm install --global co-linux-arm64@1.2.0
+npm install --global co-linux-arm64@1.2.1
 ```
 
 ```sh
-npm install --global co-macos-x64@1.2.0
+npm install --global co-macos-x64@1.2.1
 ```
 
 ```sh
-npm install --global co-macos-arm64@1.2.0
+npm install --global co-macos-arm64@1.2.1
 ```
 
 ## Manual install / 手动安装
@@ -68,8 +68,8 @@ For example, for Linux users, you can download and install with the following co
 
 ```sh
 cd /tmp \
-&& wget "https://cdn.npmmirror.com/packages/co-linux-x64/1.2.0/co-linux-x64-1.2.0.tgz" \
-&& tar -xzf co-linux-x64-1.2.0.tgz \
+&& wget "https://cdn.npmmirror.com/packages/co-linux-x64/1.2.1/co-linux-x64-1.2.1.tgz" \
+&& tar -xzf co-linux-x64-1.2.1.tgz \
 && mv /tmp/package/co /usr/bin/co \
 && chmod 777 /usr/bin/co
 ```
@@ -81,6 +81,10 @@ For Mac users, the operation is similar to Linux users, but slightly different, 
 If you are using Windows, you can set `C:\` to `PATH` with the following command. This way, you can run any executable file, including `co.exe`, directly from the command line by placing it in `C:\`. Note: You need to use `PowerShell` to run, do not use `CMD`.
 
 如果你使用 Windows 的话，可以通过以下命令将 `C:\` 设置到 `PATH` 中。这样的话，你将任何可执行文件，包括 `co.exe` 放到 `C:\` 中，就可以直接在命令行中运行它们。注意：需要使用 `PowerShell` 运行，不要使用 `CMD`。
+
+You may need to restart PowerShell or Windows for these operations to take effect.
+
+你可能需要重启 PowerShell 或 Windows，才能使这些操作生效。
 
 ```ps1
 [environment]::SetEnvironmentvariable("PATH", "$([environment]::GetEnvironmentvariable("Path", "Machine"));C:\", "Machine");
