@@ -237,9 +237,11 @@ import template from "ejs";
 
     try {
       if (platform !== "win32") {
+        // linux or macos
         console.log(`${C.bgBlackBright(`🍫 Run script `)} ${C.whiteBright(script)}`);
         child_process.execFileSync("bash", ["-c", script], { stdio: "inherit" });
       } else {
+        // windows
         script = '$ErrorActionPreference = "Stop";' + script;
         script.replace(/&&/g, ";");
         console.log(`${C.bgBlackBright(`🍫 Run script `)} ${C.whiteBright(script)}`);

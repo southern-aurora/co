@@ -13,21 +13,14 @@ scripts = [
 
 ["interactive"]
 commands = ["ui"]
-scripts = [
-    '''
-    echo '<%= JSON.stringify(
-        await ui({
-            type: "form",
-            message: 'Please provide the following information:',
-            choices: [
-                { name: 'firstname', message: 'First Name', initial: 'Jon' },
-                { name: 'lastname', message: 'Last Name', initial: 'Schlinkert' },
-                { name: 'username', message: 'GitHub username', initial: 'jonschlinkert' }
-            ]
-        })
-    ) %>'
-    ''',
-]
+scripts = ['''
+    echo you like: 
+    <%= await ui({
+        type: "select",
+        message: "What fruits do you like?",
+        choices: ["Apple", "Banana", "Cherry", "Grape"],
+    }) %>
+    ''']
 
 ["test"]
 commands = ["test"]
