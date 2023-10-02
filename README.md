@@ -470,6 +470,8 @@ Below are some commonly used demos.
 
 ##### select
 
+![](https://raw.githubusercontent.com/enquirer/enquirer/master/media/select-prompt.gif)
+
 ```toml
 ["interactive"]
 commands = ["ui"]
@@ -488,6 +490,8 @@ scripts = [
 
 ##### confirm
 
+![](https://raw.githubusercontent.com/enquirer/enquirer/master/media/confirm-prompt.gif)
+
 ```toml
 ["interactive"]
 commands = ["ui"]
@@ -504,6 +508,8 @@ scripts = [
 ```
 
 ##### input
+
+![](https://raw.githubusercontent.com/enquirer/enquirer/master/media/input-prompt.gif)
 
 ```toml
 ["interactive"]
@@ -522,6 +528,8 @@ scripts = [
 ```
 
 ##### form
+
+![](https://raw.githubusercontent.com/enquirer/enquirer/master/media/form-prompt.gif)
 
 ```toml
 ["interactive"]

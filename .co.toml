@@ -7,8 +7,8 @@ scripts = [
     # the command to run, can run multiple
     'git add --all',
     'git commit -m "update"',
-    'git push origin master',
-    'git push gitee master',
+    'git push origin',
+    'git push gitee',
 ]
 
 ["test"]
