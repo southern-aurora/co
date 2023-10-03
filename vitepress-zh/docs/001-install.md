@@ -11,23 +11,23 @@ outline: deep
 你可以通过 `npm` 或 `bun` 来快速安装和你系统与 CPU 类型相符的版本，下面以 `npm` 为例：
 
 ```sh
-npm install --global co-win-x64@1.5.2
+npm install --global co-win-x64@2.0.0
 ```
 
 ```sh
-npm install --global co-linux-x64@1.5.2
+npm install --global co-linux-x64@2.0.0
 ```
 
 ```sh
-npm install --global co-linux-arm64@1.5.2
+npm install --global co-linux-arm64@2.0.0
 ```
 
 ```sh
-npm install --global co-macos-x64@1.5.2
+npm install --global co-macos-x64@2.0.0
 ```
 
 ```sh
-npm install --global co-macos-arm64@1.5.2
+npm install --global co-macos-arm64@2.0.0
 ```
 
 ## 手动安装
@@ -38,8 +38,8 @@ npm install --global co-macos-arm64@1.5.2
 
 ```sh
 cd /tmp \
-&& wget "https://cdn.npmmirror.com/packages/co-linux-x64/1.5.2/co-linux-x64-1.5.2.tgz" \
-&& tar -xzf co-linux-x64-1.5.2.tgz \
+&& wget "https://cdn.npmmirror.com/packages/co-linux-x64/2.0.0/co-linux-x64-2.0.0.tgz" \
+&& tar -xzf co-linux-x64-2.0.0.tgz \
 && mv /tmp/package/co /usr/bin/co \
 && chmod 777 /usr/bin/co
 ```
