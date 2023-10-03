@@ -5,6 +5,7 @@ mixins = ["~/.co.toml", "co:npm"]
 commands = ["git:push", "g:p"]
 scripts = [
     # the command to run, can run multiple
+    'cd ./vitepress-zh && npm run docs:build',
     '''
     rm -rf ./docs
     && mv ./vitepress-zh/.vitepress/dist ./docs

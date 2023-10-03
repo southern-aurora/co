@@ -2,6 +2,7 @@ import { defineConfig } from "vitepress";
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
+  base: "/co/",
   title: "CO",
   description: "为你冗长繁杂的脚本们设置一个简单易记的别名",
   locales: {
