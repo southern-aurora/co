@@ -1,6 +1,6 @@
 import { argv, cwd, exit, platform, stdout } from "node:process";
 import { readFile, writeFile } from "node:fs/promises";
-import { existsSync, readFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync } from "node:fs";
 import child_process from "node:child_process";
 import { join, resolve } from "node:path";
 import { decode } from "html-entities";
@@ -8,17 +8,44 @@ import Enquirer from "enquirer";
 import C from "ansi-colors";
 import toml from "toml";
 import template from "ejs";
+import axios from "axios";
 
 (async function () {
   if (existsSync(join(process.env.HOME || process.env.USERPROFILE!, `.co.toml`)) === false) {
     await writeFile(join(process.env.HOME || process.env.USERPROFILE!, `.co.toml`), "# your global config here\n");
   }
+  if (existsSync(join(process.env.HOME || process.env.USERPROFILE!, `.co-temps`)) === false) {
+    mkdirSync(join(process.env.HOME || process.env.USERPROFILE!, `.co-temps`));
+  }
 
   const paths = {
     workdir: cwd(),
     config: join(cwd(), ".co.toml"),
+    tempdir: join(process.env.HOME || process.env.USERPROFILE!, `.co-temps`),
   };
   const args = argv.slice(2);
+
+  if (args[0] === "cox") {
+    if (!args[1]) {
+      console.log(
+        `${C.bgRedBright(
+          `🍫 Command error `
+        )} The "co cox" command must have at least 2 parameters, and the second parameter is the network address you want to execute.`
+      );
+      exit(1);
+    }
+    const base64ed = Buffer.from(args[1]).toString("base64");
+    if (existsSync(join(paths.tempdir, base64ed)) === false) {
+      const axiosResult = await axios({
+        method: "get",
+        url: args[1],
+        timeout: 10000,
+        responseType: "text",
+      });
+      await writeFile(join(paths.tempdir, base64ed), axiosResult.data);
+    }
+    paths.config = join(paths.tempdir, base64ed);
+  }
 
   if (existsSync(paths.config) === false && args.length === 0) {
     console.clear();
@@ -85,8 +112,10 @@ import template from "ejs";
     exit(0);
   }
 
+  let homeToml = false;
   if (existsSync(paths.config) === false && args.length > 0) {
     paths.config = join(process.env.HOME || process.env.USERPROFILE!, `.co.toml`);
+    homeToml = true;
   }
 
   let config = toml.parse(await readFile(paths.config, "utf-8"));
@@ -96,6 +125,26 @@ import template from "ejs";
         if (!mixin) continue;
         if (mixin.startsWith("co:")) {
           const tobeMixinConfig = toml.parse(await readFile(join(__dirname, "internals", `${mixin.substr(3)}.toml`), "utf-8"));
+          config = {
+            ...tobeMixinConfig,
+            ...config,
+          };
+        } else if (mixin.startsWith("http://") || mixin.startsWith("https://")) {
+          const base64ed = Buffer.from(mixin).toString("base64");
+          let data: string;
+          if (existsSync(join(paths.tempdir, base64ed)) === false) {
+            const axiosResult = await axios({
+              method: "get",
+              url: mixin,
+              timeout: 10000,
+              responseType: "text",
+            });
+            await writeFile(join(paths.tempdir, base64ed), axiosResult.data);
+            data = axiosResult.data;
+          } else {
+            data = await readFile(join(paths.tempdir, base64ed), "utf-8");
+          }
+          const tobeMixinConfig = toml.parse(data);
           config = {
             ...tobeMixinConfig,
             ...config,
@@ -110,7 +159,9 @@ import template from "ejs";
             mx = resolve(mx);
           } else {
             console.log(
-              `${C.bgRedBright(`🍫 General error `)} The "${mixin}" is not a valid path, must start with './' or '~/' or '/' or 'co:'`
+              `${C.bgRedBright(
+                `🍫 General error `
+              )} The "${mixin}" is not a valid path, must starts with 'co:' or './' or '~/' or '/' or 'http://' or 'https://'`
             );
             exit(1);
           }
@@ -163,6 +214,16 @@ import template from "ejs";
     console.log(`${C.bgRedBright(`🍫 Command error `)} The Command not found.`);
     console.log(`➖ Docs: ${C.underline(`https://github.com/akirarika/co`)}`);
     console.log(`➖ Config: ${C.underline(paths.config)}`);
+    if (homeToml === true) {
+      console.log(
+        C.bgYellowBright(`⚠️  NOTE: Is the directory "${C.underline(paths.workdir)}" where you are running the command the directory you want?`)
+      );
+      console.log(
+        `The ".co.toml" does not exist in directory "${C.underline(paths.workdir)}" where the command is currently running, so try using "${
+          paths.config
+        }" as the configuration, but this configuration does not exist, or the command you are running still does not exist in it!`
+      );
+    }
     exit(0);
   }
 

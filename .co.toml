@@ -11,23 +11,24 @@ scripts = [
     'git push gitee',
 ]
 
+["docs"]
+commands = ["docs"]
+scripts = [
+    # the command to run, can run multiple
+    'cd vitepress-zh && npm run docs:dev',
+]
+
 ["interactive"]
 commands = ["ui"]
-scripts = [
-    '''
+scripts = ['''
     echo '<%= JSON.stringify(
-        await ui({
-            type: "form",
-            message: 'Please provide the following information:',
-            choices: [
-                { name: 'firstname', message: 'First Name', initial: 'Jon' },
-                { name: 'lastname', message: 'Last Name', initial: 'Schlinkert' },
-                { name: 'username', message: 'GitHub username', initial: 'jonschlinkert' }
-            ]
+            await ui({
+            type: "select",
+            message: "What fruits do you like?",
+            choices: ["Apple", "Banana", "Cherry", "Grape"],
         })
     ) %>'
-    ''',
-]
+    ''']
 
 ["test"]
 commands = ["test"]

@@ -1,0 +1,13 @@
+["cox"]
+commands = ["cox"]
+scripts = [
+    #
+    '''
+    echo 'You like: 
+    <%= await ui({
+        type: "select",
+        message: "What fruits do you like?",
+        choices: ["Apple", "Banana", "Cherry", "Grape"],
+    }) %>'
+    ''',
+]
