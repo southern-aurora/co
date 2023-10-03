@@ -4,6 +4,8 @@ Give your muddled scripts a memorable alias!
 
 为你冗长繁杂的脚本们设置一个简单易记的别名！
 
+中文文档地址：[https://akirarika.github.io/co/](https://akirarika.github.io/co/)
+
 ## How was co born / co 是怎样诞生的
 
 I'm a JavaScript developer. In the JavaScript community, there are many package managers such as `npm`, `yarn`, `pnpm`, `bun`...
