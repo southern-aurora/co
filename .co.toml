@@ -5,6 +5,10 @@ mixins = ["~/.co.toml", "co:npm"]
 commands = ["git:push", "g:p"]
 scripts = [
     # the command to run, can run multiple
+    '''
+    rm -rf ./docs
+    && mv ./vitepress-zh/.vitepress/dist ./docs
+    ''',
     'git add --all',
     'git commit -m "update"',
     'git push origin',
