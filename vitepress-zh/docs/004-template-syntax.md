@@ -60,6 +60,28 @@ scripts = [
 
 `co` 会自动删掉**所有的换行**，并删除每行前面的空格。你在编写脚本时，不需要担心换行符和空格的影响，可以自由换行。
 
+## goto
+
+`goto` 是一个特殊的脚本命令，它可以让你跳转到另一个执行。
+
+在执行完成另一个命令后，如果此命令还有后续脚本没有执行完成，则继续执行后续的脚本。
+
+```toml
+["hello world"]
+commands = ["hello-world", "hw"]
+scripts = [
+    "echo 'I want to say you:'",
+    "goto:print 'hello world'",
+    "echo ':)'",
+]
+
+["print"]
+commands = ["print"]
+scripts = [
+    "echo <%= args %>",
+]
+```
+
 ## 该使用模板语法吗？
 
 在 `co` 中引入模板语法，是为了尽可能地让配置可以兼容多个平台。如果你的团队中有些人用 Mac 而有些人用 Windows，这将会是一件很头疼的事情。

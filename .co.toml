@@ -32,9 +32,13 @@ scripts = ['''
     '
     ''']
 
-["test"]
-commands = ["test"]
-scripts = ['echo "hello <%= args %>, welcome to my program"']
+["hello world"]
+commands = ["hello-world", "hw"]
+scripts = ["echo 'I want to say you:'", "goto:print 'hello world'", "echo ':)'"]
+
+["print"]
+commands = ["print"]
+scripts = ["echo <%= args %>"]
 
 ["start"]
 commands = ["dev", "start"]

@@ -9,6 +9,7 @@ import C from "ansi-colors";
 import toml from "toml";
 import template from "ejs";
 import axios from "axios";
+import chu from '@poech/camel-hump-under';
 
 (async function () {
   if (existsSync(join(process.env.HOME || process.env.USERPROFILE!, `.co.toml`)) === false) {
@@ -187,142 +188,213 @@ import axios from "axios";
     args.push("default");
   }
 
-  let task = undefined;
-  for (const key in config) {
-    const item = config[key];
-    if (Array.isArray(item.commands) === false) continue;
-    const commands = item.commands as Array<string>;
-    if (item.commands.length === 0) continue;
-    let hit = false;
-    for (const command of commands) {
-      if (args[0] === command) {
-        hit = true;
-        break;
-      }
-    }
-    if (hit === false) continue;
-
-    if (item.scripts === undefined) continue;
-    if (Array.isArray(item.scripts) === false) continue;
-    if (item.scripts.length === 0) continue;
-
-    task = item;
-    break;
-  }
-
-  if (task === undefined) {
-    console.log(`${C.bgRedBright(`🍫 Command error `)} The Command not found.`);
-    console.log(`➖ Docs: ${C.underline(`https://github.com/akirarika/co`)}`);
-    console.log(`➖ Config: ${C.underline(paths.config)}`);
-    if (homeToml === true) {
-      console.log(
-        C.bgYellowBright(`⚠️  NOTE: Is the directory "${C.underline(paths.workdir)}" where you are running the command the directory you want?`)
-      );
-      console.log(
-        `The ".co.toml" does not exist in directory "${C.underline(paths.workdir)}" where the command is currently running, so try using "${paths.config
-        }" as the configuration, but this configuration does not exist, or the command you are running still does not exist in it!`
-      );
-    }
-    exit(0);
-  }
-
-  console.log(`😸 Command running on ${C.underline(paths.workdir)}\n`);
-
-  const scripts = task.scripts as Array<string>;
-  const env = task.env || {};
-
-  const utilsInteractive = async (data: any) => {
-    data.name = "data";
-    const result: { data: any } = await Enquirer.prompt([data]);
-    return result.data;
-  };
-
-  const utilsLoadNodeModuleBin = (pkg: string, cmd: string) => {
-    const modulesPath = join(paths.workdir, "node_modules", pkg);
-    if (existsSync(modulesPath) === false) {
-      console.log(`${C.bgRedBright(`🍫 Script error `)} "${pkg}" is not installed in the local node_modules.`);
-      exit(1);
-    }
-    const packageJson = JSON.parse(readFileSync(join(modulesPath, "package.json"), "utf-8"));
-    if (packageJson.bin[cmd]) {
-      return join(modulesPath, packageJson.bin[cmd]);
-    }
-
-    console.log(
-      `${C.bgRedBright(
-        `🍫 Script error `
-      )} "${cmd}" does not exist in module "${pkg}". Attempt to check the "${cmd}" of package. json in "${pkg}", does it really exist?`
-    );
-    exit(1);
-  };
-
-  const utilsPlatform = (bash: string, powershell: string) => {
-    if (platform !== "win32") {
-      // linux or macos
-      return bash;
-    } else {
-      // windows
-      return powershell;
-    }
-  }
-
-  const variables = {
-    args: args.slice(1).join(" "),
-    argsArr: args.slice(1),
-    ui: utilsInteractive,
-    ia: utilsInteractive,
-    interactive: utilsInteractive,
-    lnb: utilsLoadNodeModuleBin,
-    loadNodeModuleBin: utilsLoadNodeModuleBin,
-    platform: utilsPlatform,
-    plt: utilsPlatform,
-  };
-
-  for (const rawscript of scripts) {
-    let script: string;
-
-    try {
-      script = await template.render(
-        rawscript,
-        {
-          ...process.env,
-          ...env,
-          ...variables,
-        },
-        {
-          async: true,
+  const execute = async (args: Array<string>) => {
+    let task = undefined;
+    for (const key in config) {
+      const item = config[key];
+      if (Array.isArray(item.commands) === false) continue;
+      const commands = item.commands as Array<string>;
+      if (item.commands.length === 0) continue;
+      let hit = false;
+      for (const command of commands) {
+        if (args[0] === command) {
+          hit = true;
+          break;
         }
-      );
+      }
+      if (hit === false) continue;
 
-      script = decode(script);
+      if (item.scripts === undefined) continue;
+      if (Array.isArray(item.scripts) === false) continue;
+      if (item.scripts.length === 0) continue;
 
-      script = script.replace(/^\s+/gm, "").replace(/\r?\n/g, "").trim();
-    } catch (error: any) {
-      console.log(
-        `${C.bgRedBright(`🍫 Script error `)} Script parsing errors, usually due to using incorrect syntax or non-existent variables.\n`
-      );
-      console.log((error?.message || "").split("\n").slice(1).join("\n"));
-      exit(1);
+      task = item;
+      break;
     }
 
-    try {
+    if (task === undefined) {
+      console.log(`${C.bgRedBright(`🍫 Command error `)} The Command not found.`);
+      console.log(`➖ Docs: ${C.underline(`https://github.com/akirarika/co`)}`);
+      console.log(`➖ Config: ${C.underline(paths.config)}`);
+      if (homeToml === true) {
+        console.log(
+          C.bgYellowBright(`⚠️  NOTE: Is the directory "${C.underline(paths.workdir)}" where you are running the command the directory you want?`)
+        );
+        console.log(
+          `The ".co.toml" does not exist in directory "${C.underline(paths.workdir)}" where the command is currently running, so try using "${paths.config
+          }" as the configuration, but this configuration does not exist, or the command you are running still does not exist in it!`
+        );
+      }
+      exit(0);
+    }
+
+    console.log(`😸 Command running on ${C.underline(paths.workdir)}\n`);
+
+    const scripts = task.scripts as Array<string>;
+    const env = task.env || {};
+
+    const utilsInteractive = async (data: any) => {
+      data.name = "data";
+      const result: { data: any } = await Enquirer.prompt([data]);
+      return result.data;
+    };
+
+    const utilsLoadNodeModuleBin = (pkg: string, cmd: string) => {
+      const modulesPath = join(paths.workdir, "node_modules", pkg);
+      if (existsSync(modulesPath) === false) {
+        console.log(`${C.bgRedBright(`🍫 Script error `)} "${pkg}" is not installed in the local node_modules.`);
+        exit(1);
+      }
+      const packageJson = JSON.parse(readFileSync(join(modulesPath, "package.json"), "utf-8"));
+      if (packageJson.bin[cmd]) {
+        return join(modulesPath, packageJson.bin[cmd]);
+      }
+
+      console.log(
+        `${C.bgRedBright(
+          `🍫 Script error `
+        )} "${cmd}" does not exist in module "${pkg}". Attempt to check the "${cmd}" of package. json in "${pkg}", does it really exist?`
+      );
+      exit(1);
+    };
+
+    const utilsPlatform = (bash: string, powershell: string) => {
       if (platform !== "win32") {
         // linux or macos
-        console.log(`${C.bgBlackBright(`🍫 Run script `)} ${C.whiteBright(script)}`);
-        child_process.execFileSync("bash", ["-c", script], { stdio: "inherit" });
+        return bash;
       } else {
         // windows
-        script = '$ErrorActionPreference = "Stop";' + script;
-        script.replace(/&&/g, ";");
-        console.log(`${C.bgBlackBright(`🍫 Run script `)} ${C.whiteBright(script)}`);
-        child_process.execFileSync("powershell.exe", ["-Command", script], { stdio: "inherit" });
+        return powershell;
       }
-    } catch (error: any) {
-      console.log(`${C.bgRedBright(`🍫 Script error `)} exited with code ${error?.status}.`);
-      exit(error?.status);
     }
-    console.log("");
+
+    const utilsCamel = (str: string) => {
+      return chu.camel(str);
+    }
+
+    const utilsHump = (str: string) => {
+      return chu.hump(str);
+    }
+
+    const utilsHyphen = (str: string) => {
+      return chu.hyphen(str);
+    }
+
+    const utilsUnderline = (str: string) => {
+      return chu.underline(str);
+    }
+
+    const utilsReadJSON = (path: string) => {
+      return JSON.parse(readFileSync(path, "utf-8"));
+    }
+
+    const utilsReadTOML = (path: string) => {
+      return toml.parse(readFileSync(paths.config, "utf-8"));
+    }
+
+
+    const variables = {
+      args: args.slice(1).join(" "),
+      argsArr: args.slice(1),
+      ui: utilsInteractive,
+      ia: utilsInteractive,
+      interactive: utilsInteractive,
+      lnb: utilsLoadNodeModuleBin,
+      loadNodeModuleBin: utilsLoadNodeModuleBin,
+      platform: utilsPlatform,
+      plt: utilsPlatform,
+      camel: utilsCamel,
+      hump: utilsHump,
+      hyphen: utilsHyphen,
+      underline: utilsUnderline,
+      readJSON: utilsReadJSON,
+      readTOML: utilsReadTOML,
+    };
+
+    for (const rawscript of scripts) {
+      let script: string;
+
+      try {
+        script = await template.render(
+          rawscript,
+          {
+            ...process.env,
+            ...env,
+            ...variables,
+          },
+          {
+            async: true,
+          }
+        );
+
+        script = decode(script);
+
+        script = script.replace(/^\s+/gm, "").replace(/\r?\n/g, "").trim();
+      } catch (error: any) {
+        console.log(
+          `${C.bgRedBright(`🍫 Script error `)} Script parsing errors, usually due to using incorrect syntax or non-existent variables.\n`
+        );
+        console.log((error?.message || "").split("\n").slice(1).join("\n"));
+        exit(1);
+      }
+
+      if (script.startsWith("goto:")) {
+        const cmdstr = script.substring(5);
+
+        const result = [];
+        let current = '';
+        let inQuotes = false;
+
+        for (let i = 0; i < cmdstr.length; i++) {
+          const char = cmdstr[i];
+
+          if (char === ' ' && !inQuotes) {
+            if (current) {
+              result.push(current);
+              current = '';
+            }
+          } else if (char === '"' || char === "'") {
+            if (inQuotes && cmdstr[i - 1] !== '\\') {
+              inQuotes = false;
+            } else if (!inQuotes) {
+              inQuotes = true;
+            }
+            current += char;
+          } else {
+            current += char;
+          }
+        }
+
+        if (current) {
+          result.push(current);
+        }
+
+        await execute(result);
+      } else {
+        try {
+          if (platform !== "win32") {
+            // linux or macos
+            console.log(`${C.bgBlackBright(`🍫 Run script `)} ${C.whiteBright(script)}`);
+            child_process.execFileSync("bash", ["-c", script], { stdio: "inherit" });
+          } else {
+            // windows
+            script = '$ErrorActionPreference = "Stop";' + script;
+            script.replace(/&&/g, ";");
+            console.log(`${C.bgBlackBright(`🍫 Run script `)} ${C.whiteBright(script)}`);
+            child_process.execFileSync("powershell.exe", ["-Command", script], { stdio: "inherit" });
+          }
+        } catch (error: any) {
+          console.log(`${C.bgRedBright(`🍫 Script error `)} exited with code ${error?.status}.`);
+          exit(error?.status);
+        }
+      }
+
+      console.log("");
+    }
   }
+
+  await execute(args);
+
 })().catch((error) => {
   console.log(`${C.bgRedBright(`🍫 Script error `)} ${error.message}`);
   exit(1);

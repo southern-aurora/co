@@ -47,7 +47,7 @@ Alias: `interactive`, `ui`, `ia`
 
 下面是一些常用的 Demo。
 
-### select
+## select
 
 ![](https://raw.githubusercontent.com/enquirer/enquirer/master/media/select-prompt.gif)
 
@@ -67,7 +67,7 @@ scripts = [
 ]
 ```
 
-### confirm
+## confirm
 
 ![](https://raw.githubusercontent.com/enquirer/enquirer/master/media/confirm-prompt.gif)
 
@@ -86,7 +86,7 @@ scripts = [
 ]
 ```
 
-### input
+## input
 
 ![](https://raw.githubusercontent.com/enquirer/enquirer/master/media/input-prompt.gif)
 
@@ -106,7 +106,7 @@ scripts = [
 ]
 ```
 
-### form
+## form
 
 ![](https://raw.githubusercontent.com/enquirer/enquirer/master/media/form-prompt.gif)
 
@@ -127,5 +127,117 @@ scripts = [
         })
     ) %>'
     '''
+]
+```
+
+## camel
+
+Alias: `camel`
+
+转换为驼峰命名 (首字母小写)
+
+```toml
+["camel"]
+commands = ["camel"]
+scripts = [
+    "echo '<%= camel('hello world') %>'",
+    "echo '<%= camel('hello-world') %>'",
+    "echo '<%= camel('hello_world') %>'",
+    "echo '<%= camel('hello.world') %>'",
+    "echo '<%= camel('helloWorld') %>'",
+    "echo '<%= camel('HelloWorld') %>'",
+]
+```
+
+## hump
+
+Alias: `hump`
+
+转换为驼峰命名 (首字母大写)
+
+```toml
+["hump"]
+commands = ["hump"]
+scripts = [
+    "echo '<%= hump('hello world') %>'",
+    "echo '<%= hump('hello-world') %>'",
+    "echo '<%= hump('hello_world') %>'",
+    "echo '<%= hump('hello.world') %>'",
+    "echo '<%= hump('helloWorld') %>'",
+    "echo '<%= hump('HelloWorld') %>'",
+]
+```
+
+## hyphen
+
+Alias: `hyphen`
+
+转换为中划线连字符命名
+
+```toml
+["hyphen"]
+commands = ["hyphen"]
+scripts = [
+    "echo '<%= hyphen('hello world') %>'",
+    "echo '<%= hyphen('hello-world') %>'",
+    "echo '<%= hyphen('hello_world') %>'",
+    "echo '<%= hyphen('hello.world') %>'",
+    "echo '<%= hyphen('helloWorld') %>'",
+    "echo '<%= hyphen('HelloWorld') %>'",
+]
+```
+
+## underline
+
+Alias: `underline`
+
+转换为下划线命名
+
+```toml
+["underline"]
+commands = ["underline"]
+scripts = [
+    "echo '<%= underline('hello world') %>'",
+    "echo '<%= underline('hello-world') %>'",
+    "echo '<%= underline('hello_world') %>'",
+    "echo '<%= underline('hello.world') %>'",
+    "echo '<%= underline('helloWorld') %>'",
+    "echo '<%= underline('HelloWorld') %>'",
+]
+```
+
+## readJSON
+
+Alias: `readJSON`
+
+读取 JSON 文件
+
+```toml
+["readJSON"]
+commands = ["read-json"]
+scripts = [
+    '''
+    echo '<%= JSON.stringify(
+        readJSON('package.json')
+    ) %>'
+    ''',
+]
+```
+
+## readTOML
+
+Alias: `readTOML`
+
+读取 TOML 文件
+
+```toml
+["readTOML"]
+commands = ["read-toml"]
+scripts = [
+    '''
+    echo '<%= JSON.stringify(
+        readTOML('config.toml')
+    ) %>'
+    ''',
 ]
 ```
