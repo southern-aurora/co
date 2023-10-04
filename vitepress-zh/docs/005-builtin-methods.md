@@ -15,6 +15,38 @@
 
 ```
 
+## exist
+
+Alias: `exist`
+
+判断文件或目录是否存在
+
+```toml
+["exist"]
+commands = ["exist"]
+scripts = [
+    '''
+    echo '<%= exist(".co.toml") %>'
+    ''',
+]
+```
+
+## day
+
+Alias: `day`
+
+时间方法，可以以非常简单人性化的方式操作日期。文档参考 [dayjs](https://github.com/iamkun/dayjs/)
+
+```toml
+["day"]
+commands = ["day"]
+scripts = [
+    '''
+    echo '<%= day().format('YYYY-MM-DD-T-HH-mm-ss') %>'
+    ''',
+]
+```
+
 ## loadNodeModuleBin
 
 Alias: `loadNodeModuleBin`, `lnb`
@@ -236,7 +268,25 @@ commands = ["read-toml"]
 scripts = [
     '''
     echo '<%= JSON.stringify(
-        readTOML('config.toml')
+        readTOML('.co.toml')
+    ) %>'
+    ''',
+]
+```
+
+## readENV
+
+Alias: `readENV`
+
+读取 `.env` 文件的内容 (值始终为字符串，不会处理引号)
+
+```toml
+["readENV"]
+commands = ["read-env"]
+scripts = [
+    '''
+    echo '<%= JSON.stringify(
+        readENV('.env')
     ) %>'
     ''',
 ]

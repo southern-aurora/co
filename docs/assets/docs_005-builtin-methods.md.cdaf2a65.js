@@ -10,7 +10,31 @@ import{_ as s,o as n,c as a,Q as l}from"./chunks/framework.f28a839a.js";const h=
 <span class="line"><span style="color:#6F42C1;">▸</span><span style="color:#24292E;"> </span><span style="color:#032F62;">Apple</span></span>
 <span class="line"><span style="color:#24292E;">  </span><span style="color:#6F42C1;">Banana</span></span>
 <span class="line"><span style="color:#24292E;">  </span><span style="color:#6F42C1;">Cherry</span></span>
-<span class="line"><span style="color:#24292E;">  </span><span style="color:#6F42C1;">Grape</span></span></code></pre></div><h2 id="loadnodemodulebin" tabindex="-1">loadNodeModuleBin <a class="header-anchor" href="#loadnodemodulebin" aria-label="Permalink to &quot;loadNodeModuleBin&quot;">​</a></h2><p>Alias: <code>loadNodeModuleBin</code>, <code>lnb</code></p><p>执行 node_modules 中的本地包命令</p><p>编写 JavaScript 时，我们有时会安装一些带有命令的包，但我们有时又不想安装到全局。</p><p><code>typescript</code> 包自带了名为 <code>tsc</code> 的命令，想调用这些局部的命令很简单。</p><p>例如，下面我们编写一个查找 <code>tsc</code> 命令所在路径的功能：</p><div class="language-toml vp-adaptive-theme"><button title="Copy Code" class="copy"></button><span class="lang">toml</span><pre class="shiki github-dark vp-code-dark"><code><span class="line"><span style="color:#E1E4E8;">[</span><span style="color:#B392F0;">&quot;where</span><span style="color:#E1E4E8;"> </span><span style="color:#B392F0;">is</span><span style="color:#E1E4E8;"> </span><span style="color:#B392F0;">tsc&quot;</span><span style="color:#E1E4E8;">]</span></span>
+<span class="line"><span style="color:#24292E;">  </span><span style="color:#6F42C1;">Grape</span></span></code></pre></div><h2 id="exist" tabindex="-1">exist <a class="header-anchor" href="#exist" aria-label="Permalink to &quot;exist&quot;">​</a></h2><p>Alias: <code>exist</code></p><p>判断文件或目录是否存在</p><div class="language-toml vp-adaptive-theme"><button title="Copy Code" class="copy"></button><span class="lang">toml</span><pre class="shiki github-dark vp-code-dark"><code><span class="line"><span style="color:#E1E4E8;">[</span><span style="color:#B392F0;">&quot;exist&quot;</span><span style="color:#E1E4E8;">]</span></span>
+<span class="line"><span style="color:#E1E4E8;">commands = [</span><span style="color:#9ECBFF;">&quot;exist&quot;</span><span style="color:#E1E4E8;">]</span></span>
+<span class="line"><span style="color:#E1E4E8;">scripts = [</span></span>
+<span class="line"><span style="color:#E1E4E8;">    </span><span style="color:#9ECBFF;">&#39;&#39;&#39;</span></span>
+<span class="line"><span style="color:#9ECBFF;">    echo &#39;&lt;%= exist(&quot;.co.toml&quot;) %&gt;&#39;</span></span>
+<span class="line"><span style="color:#9ECBFF;">    &#39;&#39;&#39;</span><span style="color:#E1E4E8;">,</span></span>
+<span class="line"><span style="color:#E1E4E8;">]</span></span></code></pre><pre class="shiki github-light vp-code-light"><code><span class="line"><span style="color:#24292E;">[</span><span style="color:#6F42C1;">&quot;exist&quot;</span><span style="color:#24292E;">]</span></span>
+<span class="line"><span style="color:#24292E;">commands = [</span><span style="color:#032F62;">&quot;exist&quot;</span><span style="color:#24292E;">]</span></span>
+<span class="line"><span style="color:#24292E;">scripts = [</span></span>
+<span class="line"><span style="color:#24292E;">    </span><span style="color:#032F62;">&#39;&#39;&#39;</span></span>
+<span class="line"><span style="color:#032F62;">    echo &#39;&lt;%= exist(&quot;.co.toml&quot;) %&gt;&#39;</span></span>
+<span class="line"><span style="color:#032F62;">    &#39;&#39;&#39;</span><span style="color:#24292E;">,</span></span>
+<span class="line"><span style="color:#24292E;">]</span></span></code></pre></div><h2 id="day" tabindex="-1">day <a class="header-anchor" href="#day" aria-label="Permalink to &quot;day&quot;">​</a></h2><p>Alias: <code>day</code></p><p>时间方法，可以以非常简单人性化的方式操作日期。文档参考 <a href="https://github.com/iamkun/dayjs/" target="_blank" rel="noreferrer">dayjs</a></p><div class="language-toml vp-adaptive-theme"><button title="Copy Code" class="copy"></button><span class="lang">toml</span><pre class="shiki github-dark vp-code-dark"><code><span class="line"><span style="color:#E1E4E8;">[</span><span style="color:#B392F0;">&quot;day&quot;</span><span style="color:#E1E4E8;">]</span></span>
+<span class="line"><span style="color:#E1E4E8;">commands = [</span><span style="color:#9ECBFF;">&quot;day&quot;</span><span style="color:#E1E4E8;">]</span></span>
+<span class="line"><span style="color:#E1E4E8;">scripts = [</span></span>
+<span class="line"><span style="color:#E1E4E8;">    </span><span style="color:#9ECBFF;">&#39;&#39;&#39;</span></span>
+<span class="line"><span style="color:#9ECBFF;">    echo &#39;&lt;%= day().format(&#39;YYYY-MM-DD-T-HH-mm-ss&#39;) %&gt;&#39;</span></span>
+<span class="line"><span style="color:#9ECBFF;">    &#39;&#39;&#39;</span><span style="color:#E1E4E8;">,</span></span>
+<span class="line"><span style="color:#E1E4E8;">]</span></span></code></pre><pre class="shiki github-light vp-code-light"><code><span class="line"><span style="color:#24292E;">[</span><span style="color:#6F42C1;">&quot;day&quot;</span><span style="color:#24292E;">]</span></span>
+<span class="line"><span style="color:#24292E;">commands = [</span><span style="color:#032F62;">&quot;day&quot;</span><span style="color:#24292E;">]</span></span>
+<span class="line"><span style="color:#24292E;">scripts = [</span></span>
+<span class="line"><span style="color:#24292E;">    </span><span style="color:#032F62;">&#39;&#39;&#39;</span></span>
+<span class="line"><span style="color:#032F62;">    echo &#39;&lt;%= day().format(&#39;YYYY-MM-DD-T-HH-mm-ss&#39;) %&gt;&#39;</span></span>
+<span class="line"><span style="color:#032F62;">    &#39;&#39;&#39;</span><span style="color:#24292E;">,</span></span>
+<span class="line"><span style="color:#24292E;">]</span></span></code></pre></div><h2 id="loadnodemodulebin" tabindex="-1">loadNodeModuleBin <a class="header-anchor" href="#loadnodemodulebin" aria-label="Permalink to &quot;loadNodeModuleBin&quot;">​</a></h2><p>Alias: <code>loadNodeModuleBin</code>, <code>lnb</code></p><p>执行 node_modules 中的本地包命令</p><p>编写 JavaScript 时，我们有时会安装一些带有命令的包，但我们有时又不想安装到全局。</p><p><code>typescript</code> 包自带了名为 <code>tsc</code> 的命令，想调用这些局部的命令很简单。</p><p>例如，下面我们编写一个查找 <code>tsc</code> 命令所在路径的功能：</p><div class="language-toml vp-adaptive-theme"><button title="Copy Code" class="copy"></button><span class="lang">toml</span><pre class="shiki github-dark vp-code-dark"><code><span class="line"><span style="color:#E1E4E8;">[</span><span style="color:#B392F0;">&quot;where</span><span style="color:#E1E4E8;"> </span><span style="color:#B392F0;">is</span><span style="color:#E1E4E8;"> </span><span style="color:#B392F0;">tsc&quot;</span><span style="color:#E1E4E8;">]</span></span>
 <span class="line"><span style="color:#E1E4E8;">commands = [</span><span style="color:#9ECBFF;">&quot;where-is-tsc&quot;</span><span style="color:#E1E4E8;">, </span><span style="color:#9ECBFF;">&quot;wt&quot;</span><span style="color:#E1E4E8;">]</span></span>
 <span class="line"><span style="color:#E1E4E8;">scripts = [</span></span>
 <span class="line"><span style="color:#E1E4E8;">    </span><span style="color:#9ECBFF;">&quot;echo tsc in: &lt;%= lnb(&#39;typescript&#39;, &#39;tsc&#39;) %&gt;&quot;</span><span style="color:#E1E4E8;">,</span></span>
@@ -217,7 +241,7 @@ import{_ as s,o as n,c as a,Q as l}from"./chunks/framework.f28a839a.js";const h=
 <span class="line"><span style="color:#E1E4E8;">scripts = [</span></span>
 <span class="line"><span style="color:#E1E4E8;">    </span><span style="color:#9ECBFF;">&#39;&#39;&#39;</span></span>
 <span class="line"><span style="color:#9ECBFF;">    echo &#39;&lt;%= JSON.stringify(</span></span>
-<span class="line"><span style="color:#9ECBFF;">        readTOML(&#39;config.toml&#39;)</span></span>
+<span class="line"><span style="color:#9ECBFF;">        readTOML(&#39;.co.toml&#39;)</span></span>
 <span class="line"><span style="color:#9ECBFF;">    ) %&gt;&#39;</span></span>
 <span class="line"><span style="color:#9ECBFF;">    &#39;&#39;&#39;</span><span style="color:#E1E4E8;">,</span></span>
 <span class="line"><span style="color:#E1E4E8;">]</span></span></code></pre><pre class="shiki github-light vp-code-light"><code><span class="line"><span style="color:#24292E;">[</span><span style="color:#6F42C1;">&quot;readTOML&quot;</span><span style="color:#24292E;">]</span></span>
@@ -225,7 +249,23 @@ import{_ as s,o as n,c as a,Q as l}from"./chunks/framework.f28a839a.js";const h=
 <span class="line"><span style="color:#24292E;">scripts = [</span></span>
 <span class="line"><span style="color:#24292E;">    </span><span style="color:#032F62;">&#39;&#39;&#39;</span></span>
 <span class="line"><span style="color:#032F62;">    echo &#39;&lt;%= JSON.stringify(</span></span>
-<span class="line"><span style="color:#032F62;">        readTOML(&#39;config.toml&#39;)</span></span>
+<span class="line"><span style="color:#032F62;">        readTOML(&#39;.co.toml&#39;)</span></span>
 <span class="line"><span style="color:#032F62;">    ) %&gt;&#39;</span></span>
 <span class="line"><span style="color:#032F62;">    &#39;&#39;&#39;</span><span style="color:#24292E;">,</span></span>
-<span class="line"><span style="color:#24292E;">]</span></span></code></pre></div>`,52),e=[o];function t(c,r,i,E,y,u){return n(),a("div",null,e)}const F=s(p,[["render",t]]);export{h as __pageData,F as default};
+<span class="line"><span style="color:#24292E;">]</span></span></code></pre></div><h2 id="readenv" tabindex="-1">readENV <a class="header-anchor" href="#readenv" aria-label="Permalink to &quot;readENV&quot;">​</a></h2><p>Alias: <code>readENV</code></p><p>读取 <code>.env</code> 文件的内容 (值始终为字符串，不会处理引号)</p><div class="language-toml vp-adaptive-theme"><button title="Copy Code" class="copy"></button><span class="lang">toml</span><pre class="shiki github-dark vp-code-dark"><code><span class="line"><span style="color:#E1E4E8;">[</span><span style="color:#B392F0;">&quot;readENV&quot;</span><span style="color:#E1E4E8;">]</span></span>
+<span class="line"><span style="color:#E1E4E8;">commands = [</span><span style="color:#9ECBFF;">&quot;read-env&quot;</span><span style="color:#E1E4E8;">]</span></span>
+<span class="line"><span style="color:#E1E4E8;">scripts = [</span></span>
+<span class="line"><span style="color:#E1E4E8;">    </span><span style="color:#9ECBFF;">&#39;&#39;&#39;</span></span>
+<span class="line"><span style="color:#9ECBFF;">    echo &#39;&lt;%= JSON.stringify(</span></span>
+<span class="line"><span style="color:#9ECBFF;">        readENV(&#39;.env&#39;)</span></span>
+<span class="line"><span style="color:#9ECBFF;">    ) %&gt;&#39;</span></span>
+<span class="line"><span style="color:#9ECBFF;">    &#39;&#39;&#39;</span><span style="color:#E1E4E8;">,</span></span>
+<span class="line"><span style="color:#E1E4E8;">]</span></span></code></pre><pre class="shiki github-light vp-code-light"><code><span class="line"><span style="color:#24292E;">[</span><span style="color:#6F42C1;">&quot;readENV&quot;</span><span style="color:#24292E;">]</span></span>
+<span class="line"><span style="color:#24292E;">commands = [</span><span style="color:#032F62;">&quot;read-env&quot;</span><span style="color:#24292E;">]</span></span>
+<span class="line"><span style="color:#24292E;">scripts = [</span></span>
+<span class="line"><span style="color:#24292E;">    </span><span style="color:#032F62;">&#39;&#39;&#39;</span></span>
+<span class="line"><span style="color:#032F62;">    echo &#39;&lt;%= JSON.stringify(</span></span>
+<span class="line"><span style="color:#032F62;">        readENV(&#39;.env&#39;)</span></span>
+<span class="line"><span style="color:#032F62;">    ) %&gt;&#39;</span></span>
+<span class="line"><span style="color:#032F62;">    &#39;&#39;&#39;</span><span style="color:#24292E;">,</span></span>
+<span class="line"><span style="color:#24292E;">]</span></span></code></pre></div>`,64),e=[o];function t(c,r,i,E,y,u){return n(),a("div",null,e)}const F=s(p,[["render",t]]);export{h as __pageData,F as default};

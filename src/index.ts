@@ -2,7 +2,7 @@ import { argv, cwd, exit, platform, stdout } from "node:process";
 import { readFile, writeFile } from "node:fs/promises";
 import { existsSync, mkdirSync, readFileSync } from "node:fs";
 import child_process from "node:child_process";
-import { join, resolve } from "node:path";
+import path, { join, resolve } from "node:path";
 import { decode } from "html-entities";
 import Enquirer from "enquirer";
 import C from "ansi-colors";
@@ -10,6 +10,7 @@ import toml from "toml";
 import template from "ejs";
 import axios from "axios";
 import chu from '@poech/camel-hump-under';
+import dayjs from "dayjs";
 
 (async function () {
   if (existsSync(join(process.env.HOME || process.env.USERPROFILE!, `.co.toml`)) === false) {
@@ -188,6 +189,8 @@ import chu from '@poech/camel-hump-under';
     args.push("default");
   }
 
+  console.log(`😸 Command running on ${C.underline(paths.workdir)}\n`);
+
   const execute = async (args: Array<string>) => {
     let task = undefined;
     for (const key in config) {
@@ -227,8 +230,6 @@ import chu from '@poech/camel-hump-under';
       }
       exit(0);
     }
-
-    console.log(`😸 Command running on ${C.underline(paths.workdir)}\n`);
 
     const scripts = task.scripts as Array<string>;
     const env = task.env || {};
@@ -289,8 +290,38 @@ import chu from '@poech/camel-hump-under';
     }
 
     const utilsReadTOML = (path: string) => {
-      return toml.parse(readFileSync(paths.config, "utf-8"));
+      return toml.parse(readFileSync(path, "utf-8"));
     }
+
+    const utilsReadENV = (path: string) => {
+      function parseEnv(data: string): { [key: string]: string } {
+        const envEntries = data.split('\n')
+        const envObject: { [key: string]: string } = {}
+
+        for (const entry of envEntries) {
+          const [key, value] = entry.split('=')
+          if (key && value) {
+            envObject[key.trim()] = value.trim()
+          }
+        }
+
+        return envObject
+      }
+
+      return parseEnv(readFileSync(path, "utf-8"));
+    }
+
+    const utilsExist = (path: string) => {
+      if (path.startsWith("~/") || path.startsWith("~\\")) {
+        path = join(process.env.HOME || process.env.USERPROFILE!, path.substring(2));
+      }
+      else if (path.startsWith("./") || path.startsWith(".\\")) {
+        path = join(paths.workdir, path.substring(2));
+      }
+      return existsSync(join(path));
+    }
+
+    const utilsDay = dayjs;
 
 
     const variables = {
@@ -309,6 +340,9 @@ import chu from '@poech/camel-hump-under';
       underline: utilsUnderline,
       readJSON: utilsReadJSON,
       readTOML: utilsReadTOML,
+      exist: utilsExist,
+      readENV: utilsReadENV,
+      day: utilsDay,
     };
 
     for (const rawscript of scripts) {

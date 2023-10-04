@@ -16,6 +16,7 @@ scripts = [
     'git push gitee',
 ]
 
+
 ["docs"]
 commands = ["docs"]
 scripts = [
@@ -23,13 +24,10 @@ scripts = [
     'cd vitepress-zh && npm run docs:dev',
 ]
 
-["platform"]
-commands = ["plt"]
+["day"]
+commands = ["day"]
 scripts = ['''
-    echo '
-        To delete all your data (very dangerous), you can try running: 
-        rm <%= plt('-rf', '-Recurse -Force') %> ./*
-    '
+    echo '<%= day().format('YYYY-MM-DD-T-HH-mm-ss') %>'
     ''']
 
 ["hello world"]
