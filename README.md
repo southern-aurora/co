@@ -39,23 +39,23 @@ For `deno` and other languages, they do not have similar command alias support, 
 `co` 本质是单个可执行二进制文件，你可以通过 `npm` 来快速安装和你系统与 CPU 类型相符的版本：
 
 ```sh
-npm install --global co-win-x64@2.0.0
+npm install --global co-win-x64@2.1.0
 ```
 
 ```sh
-npm install --global co-linux-x64@2.0.0
+npm install --global co-linux-x64@2.1.0
 ```
 
 ```sh
-npm install --global co-linux-arm64@2.0.0
+npm install --global co-linux-arm64@2.1.0
 ```
 
 ```sh
-npm install --global co-macos-x64@2.0.0
+npm install --global co-macos-x64@2.1.0
 ```
 
 ```sh
-npm install --global co-macos-arm64@2.0.0
+npm install --global co-macos-arm64@2.1.0
 ```
 
 ## Manual install / 手动安装
@@ -70,8 +70,8 @@ For example, for Linux users, you can download and install with the following co
 
 ```sh
 cd /tmp \
-&& wget "https://cdn.npmmirror.com/packages/co-linux-x64/2.0.0/co-linux-x64-2.0.0.tgz" \
-&& tar -xzf co-linux-x64-2.0.0.tgz \
+&& wget "https://cdn.npmmirror.com/packages/co-linux-x64/2.1.0/co-linux-x64-2.1.0.tgz" \
+&& tar -xzf co-linux-x64-2.1.0.tgz \
 && mv /tmp/package/co /usr/bin/co \
 && chmod 777 /usr/bin/co
 ```
