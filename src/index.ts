@@ -219,8 +219,7 @@ import axios from "axios";
         C.bgYellowBright(`⚠️  NOTE: Is the directory "${C.underline(paths.workdir)}" where you are running the command the directory you want?`)
       );
       console.log(
-        `The ".co.toml" does not exist in directory "${C.underline(paths.workdir)}" where the command is currently running, so try using "${
-          paths.config
+        `The ".co.toml" does not exist in directory "${C.underline(paths.workdir)}" where the command is currently running, so try using "${paths.config
         }" as the configuration, but this configuration does not exist, or the command you are running still does not exist in it!`
       );
     }
@@ -257,6 +256,16 @@ import axios from "axios";
     exit(1);
   };
 
+  const utilsPlatform = (bash: string, powershell: string) => {
+    if (platform !== "win32") {
+      // linux or macos
+      return bash;
+    } else {
+      // windows
+      return powershell;
+    }
+  }
+
   const variables = {
     args: args.slice(1).join(" "),
     argsArr: args.slice(1),
@@ -265,6 +274,8 @@ import axios from "axios";
     interactive: utilsInteractive,
     lnb: utilsLoadNodeModuleBin,
     loadNodeModuleBin: utilsLoadNodeModuleBin,
+    platform: utilsPlatform,
+    plt: utilsPlatform,
   };
 
   for (const rawscript of scripts) {

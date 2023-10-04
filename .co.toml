@@ -23,16 +23,13 @@ scripts = [
     'cd vitepress-zh && npm run docs:dev',
 ]
 
-["interactive"]
-commands = ["ui"]
+["platform"]
+commands = ["plt"]
 scripts = ['''
-    echo '<%= JSON.stringify(
-            await ui({
-            type: "select",
-            message: "What fruits do you like?",
-            choices: ["Apple", "Banana", "Cherry", "Grape"],
-        })
-    ) %>'
+    echo '
+        To delete all your data (very dangerous), you can try running: 
+        rm <%= plt('-rf', '-Recurse -Force') %> ./*
+    '
     ''']
 
 ["test"]

@@ -15,3 +15,20 @@ cd ~ && cd .ssh && cat id_rsa.pub
 ```sh
 $ErrorActionPreference = "Stop" ; cd ~ ; cd .ssh ; cat id_rsa.pub
 ```
+
+## Platform 模板方法
+
+在 `co` 中，可以使用 `Platform` 模板方法来根据不同平台，返回不同的内容。
+
+```toml
+["platform"]
+commands = ["plt"]
+scripts = [
+'''
+    echo '
+        To delete all your data (VERY DANGEROUS), you can try running:
+        rm <%= plt('-rf', '-Recurse -Force') %> ./*
+    '
+'''
+]
+```
