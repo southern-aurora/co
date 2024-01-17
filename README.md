@@ -6,9 +6,9 @@ No need to recall which JavaScript package manager to use!
 
 ## How was co born / co 是怎样诞生的
 
-I'm a JavaScript developer. In the JavaScript community, there are many package managers such as `npm`, `yarn`, `pnpm`, `bun`...
+I'm a JavaScript developer. In the JavaScript community, there are many package managers such as `npm`, `bun`, `yarn`, `pnpm`, `cnpm`...
 
-我是一个 JavaScript 开发者。在 JavaScript 社区中，有许多包管理器，例如 `npm`、`yarn`、`pnpm`、`bun` 等等。
+我是一个 JavaScript 开发者。在 JavaScript 社区中，有许多包管理器，例如 `npm`、`bun`、`yarn`、`pnpm`、`cnpm` 等等。
 
 In different projects, before installing a package, you must first recall the package manager used by the project, and then run the corresponding command.
 
@@ -53,23 +53,23 @@ The available options are:
 可选的版本有：
 
 ```sh
-co-win-x64@3.0.0
+co-win-x64@3.0.1
 ```
 
 ```sh
-co-linux-x64@3.0.0
+co-linux-x64@3.0.1
 ```
 
 ```sh
-co-linux-arm64@3.0.0
+co-linux-arm64@3.0.1
 ```
 
 ```sh
-co-macos-x64@3.0.0
+co-macos-x64@3.0.1
 ```
 
 ```sh
-co-macos-arm64@3.0.0
+co-macos-arm64@3.0.1
 ```
 
 ## Manual install / 手动安装
@@ -84,8 +84,8 @@ For example, for Linux users, you can download and install with the following co
 
 ```sh
 cd /tmp \
-&& wget "https://cdn.npmmirror.com/packages/co-linux-x64/3.0.0/co-linux-x64-3.0.0.tgz" \
-&& tar -xzf co-linux-x64-3.0.0.tgz \
+&& wget "https://cdn.npmmirror.com/packages/co-linux-x64/3.0.1/co-linux-x64-3.0.1.tgz" \
+&& tar -xzf co-linux-x64-3.0.1.tgz \
 && mv /tmp/package/co /usr/bin/co \
 && chmod 777 /usr/bin/co
 ```

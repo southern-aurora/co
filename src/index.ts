@@ -83,7 +83,7 @@ import dayjs from "dayjs";
           type: "select",
           name: "data",
           message: "What config do you want to use as the default for this?",
-          choices: ["<cancel>", "bun", "pnpm", "yarn", "npm"],
+          choices: ["<cancel>", "bun", "pnpm", "yarn", "npm", "cnpm"],
         },
       ]);
     } catch (error) {
