@@ -46,6 +46,8 @@ npm install --global YOUR_VERSION
 bun add --global YOUR_VERSION
 ```
 
+The available options are:
+
 可选的版本有：
 
 ```sh
