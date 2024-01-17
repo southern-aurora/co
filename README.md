@@ -134,9 +134,17 @@ In the initialization section of the previous step, you selected the package man
 
 在上一步的初始化章节中，你选择了你计划在此项目中使用的包管理器，接着，你就可以自由使用下面这些命令了！
 
-For example, if you want to install the package `lodash`, you can do this:
+Usually, we start the development of a project by running `npm run dev`. Now, you just need to use `co dev`:
 
-例如，你想要安装包 `lodash`，你可以这样做：
+通常，我们启动项目的开发会运行 `npm run dev`，现在，你只需要使用 `co dev`：
+
+```sh
+co dev
+```
+
+And, if you want to install the package `lodash`, you can do this:
+
+以及，你想要安装包 `lodash`，你可以这样做：
 
 ```sh
 co install lodash

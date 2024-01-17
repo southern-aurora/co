@@ -10,6 +10,14 @@ Compare NPM: `npm run`
 co r dev
 ```
 
+When a command does not exist, co will attempt to run it using the run command. Therefore, we can directly:
+
+当一个命令不存在时，co 将尝试使用 run 命令来运行它。因此，我们可以直接：
+
+```sh
+co dev
+```
+
 ### Execute (npx) / 执行 (npx)
 
 Alias: `execute`, `x`
