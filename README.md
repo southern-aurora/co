@@ -206,7 +206,7 @@ The available commands can be found in the [Git alias list](./GIT_ALIAS_LIST.md)
 
 Commands starting with co: are built-in. You can also use commands from the community by providing an http(s) link or a relative path (`./` or `~/`). If you provide a link, we assume it is static. The command will be downloaded from the web on the first run and cached in ~/.co-temps, and subsequently run from the cache on each run.
 
-命令以 co:开头的是内置命令。您还可以使用来自社区的命令，只需提供一个 http(s)链接或相对路径 (`./` 或 `~/`)。如果您提供了一个链接，我们会假设它是不会变化的。该命令将在首次运行时从网络下载并缓存在~/.co-temps 中，然后在每次运行时从缓存中运行，除非缓存文件被删除，否则不会再次重新下载。
+命令以 co:开头的是内置命令。您还可以使用来自社区的命令，只需提供一个 http(s) 链接或相对路径 (`./` 或 `~/`)。如果您提供了一个链接，我们会假设它是不会变化的。该命令将在首次运行时从网络下载并缓存在~/.co-temps 中，然后在每次运行时从缓存中运行，除非缓存文件被删除，否则不会再次重新下载。
 
 If you want to write your own co script, please read the [writing guide](./WRITING_GUIDE.md).
 
