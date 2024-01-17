@@ -13,7 +13,7 @@ cd ~ && cd .ssh && cat id_rsa.pub
 在 `co` 中，自动对这种情况做了兼容处理。如果你在 Windows 下的 `co` 中，原封不动地执行上面的脚本，那么将正常工作。它实际上会被转换成下面的命令来执行：
 
 ```sh
-$ErrorActionPreference = "Stop" ; cd ~ ; cd .ssh ; cat id_rsa.pub
+$ErrorActionPreference = "Stop"; cd ~; cd .ssh; cat id_rsa.pub;
 ```
 
 ## Platform 模板方法

@@ -3,6 +3,9 @@
   "private": true,
   "module": "bootstrap.js",
   "bin": "./bootstrap.js",
+  "scripts": {
+    "hello": "echo hello-world"
+  },
   "pkg": {
     "outPath": "dist",
     "scripts": "./bootstrap.js",

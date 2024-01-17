@@ -1,0 +1,57 @@
+["git:commit"]
+commands = ["git:commit", "g:c"]
+scripts = [
+    # the command to run, can run multiple
+    'git add --all',
+    '''
+    git commit -m <%= JSON.stringify(
+        await ui({
+            type: "input",
+            message: 'message',
+            initial: 'update'
+        })
+    ) %>
+    ''',
+]
+
+["install (dev)"]
+commands = ["install:dev", "i:d", "add:dev", "a:d"]
+scripts = [
+    # the command to run, can run multiple
+    'bun add --dev <%= args %>',
+]
+
+["install (global)"]
+commands = ["install:global", "i:g", "add:global", "a:g"]
+scripts = [
+    # the command to run, can run multiple
+    'bun add --global <%= args %>',
+]
+
+["update"]
+commands = ["update", "up", "upgrade"]
+scripts = [
+    # the command to run, can run multiple
+    'bun update',
+]
+
+["uninstall"]
+commands = ["uninstall", "un", "remove", "rm"]
+scripts = [
+    # the command to run, can run multiple
+    'bun remove <%= args %>',
+]
+
+["run"]
+commands = ["run", "r"]
+scripts = [
+    # the command to run, can run multiple
+    'bun run <%= args %>',
+]
+
+["execute"]
+commands = ["execute", "x"]
+scripts = [
+    # the command to run, can run multiple
+    'bunx <%= args %>',
+]

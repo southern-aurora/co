@@ -9,16 +9,16 @@ import C from "ansi-colors";
 import toml from "toml";
 import template from "ejs";
 import axios from "axios";
-import chu from '@poech/camel-hump-under';
+import chu from "@poech/camel-hump-under";
 import dayjs from "dayjs";
 
 (async function () {
-  if (existsSync(join(process.env.HOME || process.env.USERPROFILE!, `.co.toml`)) === false) {
-    await writeFile(join(process.env.HOME || process.env.USERPROFILE!, `.co.toml`), "# your global config here\n");
-  }
-  if (existsSync(join(process.env.HOME || process.env.USERPROFILE!, `.co-temps`)) === false) {
-    mkdirSync(join(process.env.HOME || process.env.USERPROFILE!, `.co-temps`));
-  }
+  // if (existsSync(join(process.env.HOME || process.env.USERPROFILE!, `.co.toml`)) === false) {
+  //   await writeFile(join(process.env.HOME || process.env.USERPROFILE!, `.co.toml`), "# your global config here\n");
+  // }
+  // if (existsSync(join(process.env.HOME || process.env.USERPROFILE!, `.co-temps`)) === false) {
+  //   mkdirSync(join(process.env.HOME || process.env.USERPROFILE!, `.co-temps`));
+  // }
 
   const paths = {
     workdir: cwd(),
@@ -27,27 +27,27 @@ import dayjs from "dayjs";
   };
   const args = argv.slice(2);
 
-  if (args[0] === "cox") {
-    if (!args[1]) {
-      console.log(
-        `${C.bgRedBright(
-          `🍫 Command error `
-        )} The "co cox" command must have at least 2 parameters, and the second parameter is the network address you want to execute.`
-      );
-      exit(1);
-    }
-    const base64ed = Buffer.from(args[1]).toString("base64");
-    if (existsSync(join(paths.tempdir, base64ed)) === false) {
-      const axiosResult = await axios({
-        method: "get",
-        url: args[1],
-        timeout: 10000,
-        responseType: "text",
-      });
-      await writeFile(join(paths.tempdir, base64ed), axiosResult.data);
-    }
-    paths.config = join(paths.tempdir, base64ed);
-  }
+  // if (args[0] === "cox") {
+  //   if (!args[1]) {
+  //     console.log(
+  //       `${C.bgRedBright(
+  //         `🍫 Command error `
+  //       )} The "co cox" command must have at least 2 parameters, and the second parameter is the network address you want to execute.`
+  //     );
+  //     exit(1);
+  //   }
+  //   const base64ed = Buffer.from(args[1]).toString("base64");
+  //   if (existsSync(join(paths.tempdir, base64ed)) === false) {
+  //     const axiosResult = await axios({
+  //       method: "get",
+  //       url: args[1],
+  //       timeout: 10000,
+  //       responseType: "text",
+  //     });
+  //     await writeFile(join(paths.tempdir, base64ed), axiosResult.data);
+  //   }
+  //   paths.config = join(paths.tempdir, base64ed);
+  // }
 
   if (existsSync(paths.config) === false && args.length === 0) {
     console.clear();
@@ -83,7 +83,7 @@ import dayjs from "dayjs";
           type: "select",
           name: "data",
           message: "What config do you want to use as the default for this?",
-          choices: ["<cancel>", "custom", "bun", "pnpm", "yarn", "npm"],
+          choices: ["<cancel>", "bun", "pnpm", "yarn", "npm"],
         },
       ]);
     } catch (error) {
@@ -98,7 +98,29 @@ import dayjs from "dayjs";
 
     console.clear();
 
-    if (stage2.data === "custom") {
+    if (existsSync(join(cwd(), "package.json")) === false) {
+      let stage3: { data: boolean };
+      try {
+        console.log(
+          '🍫 Whoops! The "package.json" does not exist in this directory.\nIt may not be a JavaScript/TypeScript project. \n\n' + cwd() + "\n"
+        );
+
+        stage3 = await Enquirer.prompt([
+          {
+            type: "confirm",
+            name: "data",
+            message: "Are you sure you want to continue?",
+          },
+        ]);
+      } catch (error) {
+        console.log(`😸 Bye!`);
+        exit(0);
+      }
+
+      if (stage3.data === false) {
+        console.log(`😸 Bye!`);
+        exit(0);
+      }
     }
 
     const config = await readFile(join(__dirname, "templates", `${stage2.data}.toml`), "utf-8");
@@ -114,30 +136,40 @@ import dayjs from "dayjs";
     exit(0);
   }
 
-  let homeToml = false;
+  // let homeToml = false;
+  // if (existsSync(paths.config) === false && args.length > 0) {
+  //   paths.config = join(process.env.HOME || process.env.USERPROFILE!, `.co.toml`);
+  //   homeToml = true;
+  // }
   if (existsSync(paths.config) === false && args.length > 0) {
-    paths.config = join(process.env.HOME || process.env.USERPROFILE!, `.co.toml`);
-    homeToml = true;
+    console.log(
+      C.bgYellowBright(`⚠️  NOTE: Is the directory "${C.underline(paths.workdir)}" where you are running the command the directory you want?`)
+    );
+    console.log(``);
+    console.log(`😸 This has not been initialized yet!`);
+    console.log(`➖ Docs: ${C.underline(`https://github.com/akirarika/co`)}`);
+    console.log(`➖ Config: ${C.underline(paths.config)}`);
+    return;
   }
 
   let config = toml.parse(await readFile(paths.config, "utf-8"));
   if (config.general) {
-    if (config.general.mixins && config.general.mixins.length > 0) {
-      for (const mixin of config.general.mixins) {
-        if (!mixin) continue;
-        if (mixin.startsWith("co:")) {
-          const tobeMixinConfig = toml.parse(await readFile(join(__dirname, "internals", `${mixin.substr(3)}.toml`), "utf-8"));
+    if (config.general.includes && config.general.includes.length > 0) {
+      for (const include of config.general.includes) {
+        if (!include) continue;
+        if (include.startsWith("co:")) {
+          const tobeIncludeConfig = toml.parse(await readFile(join(__dirname, "internals", `${include.substr(3)}.toml`), "utf-8"));
           config = {
-            ...tobeMixinConfig,
+            ...tobeIncludeConfig,
             ...config,
           };
-        } else if (mixin.startsWith("http://") || mixin.startsWith("https://")) {
-          const base64ed = Buffer.from(mixin).toString("base64");
+        } else if (include.startsWith("http://") || include.startsWith("https://")) {
+          const base64ed = Buffer.from(include).toString("base64");
           let data: string;
           if (existsSync(join(paths.tempdir, base64ed)) === false) {
             const axiosResult = await axios({
               method: "get",
-              url: mixin,
+              url: include,
               timeout: 10000,
               responseType: "text",
             });
@@ -146,13 +178,13 @@ import dayjs from "dayjs";
           } else {
             data = await readFile(join(paths.tempdir, base64ed), "utf-8");
           }
-          const tobeMixinConfig = toml.parse(data);
+          const tobeIncludeConfig = toml.parse(data);
           config = {
-            ...tobeMixinConfig,
+            ...tobeIncludeConfig,
             ...config,
           };
         } else {
-          let mx = mixin;
+          let mx = include;
           if (mx.startsWith("./") || mx.startsWith(".\\")) {
             mx = join(paths.workdir, mx.substr(2));
           } else if (mx.startsWith("~/") || mx.startsWith("~\\")) {
@@ -163,20 +195,20 @@ import dayjs from "dayjs";
             console.log(
               `${C.bgRedBright(
                 `🍫 General error `
-              )} The "${mixin}" is not a valid path, must starts with 'co:' or './' or '~/' or '/' or 'http://' or 'https://'`
+              )} The "${include}" is not a valid path, must starts with 'co:' or './' or '~/' or '/' or 'http://' or 'https://'`
             );
             exit(1);
           }
           if (existsSync(mx)) {
-            const tobeMixinConfig = toml.parse(await readFile(mx, "utf-8"));
-            if (tobeMixinConfig.general) {
+            const tobeIncludeConfig = toml.parse(await readFile(mx, "utf-8"));
+            if (tobeIncludeConfig.general) {
               console.log(
-                `${C.bgRedBright(`🍫 General error `)} ["general"] can only be written in ".co.toml", but it was discovered in "${mixin}".`
+                `${C.bgRedBright(`🍫 General error `)} ["general"] can only be written in ".co.toml", but it was discovered in "${include}".`
               );
               exit(1);
             }
             config = {
-              ...tobeMixinConfig,
+              ...tobeIncludeConfig,
               ...config,
             };
           }
@@ -192,43 +224,36 @@ import dayjs from "dayjs";
   console.log(`😸 Command running on ${C.underline(paths.workdir)}\n`);
 
   const execute = async (args: Array<string>) => {
-    let task = undefined;
-    for (const key in config) {
-      const item = config[key];
-      if (Array.isArray(item.commands) === false) continue;
-      const commands = item.commands as Array<string>;
-      if (item.commands.length === 0) continue;
-      let hit = false;
-      for (const command of commands) {
-        if (args[0] === command) {
-          hit = true;
-          break;
+    let task: any = undefined;
+    const loadTask = () => {
+      for (const key in config) {
+        const item = config[key];
+        if (Array.isArray(item.commands) === false) continue;
+        const commands = item.commands as Array<string>;
+        if (item.commands.length === 0) continue;
+        let hit = false;
+        for (const command of commands) {
+          if (args[0] === command) {
+            hit = true;
+            break;
+          }
         }
+        if (hit === false) continue;
+
+        if (item.scripts === undefined) continue;
+        if (Array.isArray(item.scripts) === false) continue;
+        if (item.scripts.length === 0) continue;
+
+        task = item;
+        break;
       }
-      if (hit === false) continue;
+    };
 
-      if (item.scripts === undefined) continue;
-      if (Array.isArray(item.scripts) === false) continue;
-      if (item.scripts.length === 0) continue;
-
-      task = item;
-      break;
-    }
+    loadTask();
 
     if (task === undefined) {
-      console.log(`${C.bgRedBright(`🍫 Command error `)} The Command not found.`);
-      console.log(`➖ Docs: ${C.underline(`https://github.com/akirarika/co`)}`);
-      console.log(`➖ Config: ${C.underline(paths.config)}`);
-      if (homeToml === true) {
-        console.log(
-          C.bgYellowBright(`⚠️  NOTE: Is the directory "${C.underline(paths.workdir)}" where you are running the command the directory you want?`)
-        );
-        console.log(
-          `The ".co.toml" does not exist in directory "${C.underline(paths.workdir)}" where the command is currently running, so try using "${paths.config
-          }" as the configuration, but this configuration does not exist, or the command you are running still does not exist in it!`
-        );
-      }
-      exit(0);
+      args.unshift("run");
+      loadTask();
     }
 
     const scripts = task.scripts as Array<string>;
@@ -267,62 +292,60 @@ import dayjs from "dayjs";
         // windows
         return powershell;
       }
-    }
+    };
 
     const utilsCamel = (str: string) => {
       return chu.camel(str);
-    }
+    };
 
     const utilsHump = (str: string) => {
       return chu.hump(str);
-    }
+    };
 
     const utilsHyphen = (str: string) => {
       return chu.hyphen(str);
-    }
+    };
 
     const utilsUnderline = (str: string) => {
       return chu.underline(str);
-    }
+    };
 
     const utilsReadJSON = (path: string) => {
       return JSON.parse(readFileSync(path, "utf-8"));
-    }
+    };
 
     const utilsReadTOML = (path: string) => {
       return toml.parse(readFileSync(path, "utf-8"));
-    }
+    };
 
     const utilsReadENV = (path: string) => {
       function parseEnv(data: string): { [key: string]: string } {
-        const envEntries = data.split('\n')
-        const envObject: { [key: string]: string } = {}
+        const envEntries = data.split("\n");
+        const envObject: { [key: string]: string } = {};
 
         for (const entry of envEntries) {
-          const [key, value] = entry.split('=')
+          const [key, value] = entry.split("=");
           if (key && value) {
-            envObject[key.trim()] = value.trim()
+            envObject[key.trim()] = value.trim();
           }
         }
 
-        return envObject
+        return envObject;
       }
 
       return parseEnv(readFileSync(path, "utf-8"));
-    }
+    };
 
     const utilsExist = (path: string) => {
       if (path.startsWith("~/") || path.startsWith("~\\")) {
         path = join(process.env.HOME || process.env.USERPROFILE!, path.substring(2));
-      }
-      else if (path.startsWith("./") || path.startsWith(".\\")) {
+      } else if (path.startsWith("./") || path.startsWith(".\\")) {
         path = join(paths.workdir, path.substring(2));
       }
       return existsSync(join(path));
-    }
+    };
 
     const utilsDay = dayjs;
-
 
     const variables = {
       args: args.slice(1).join(" "),
@@ -376,19 +399,19 @@ import dayjs from "dayjs";
         const cmdstr = script.substring(5);
 
         const result = [];
-        let current = '';
+        let current = "";
         let inQuotes = false;
 
         for (let i = 0; i < cmdstr.length; i++) {
           const char = cmdstr[i];
 
-          if (char === ' ' && !inQuotes) {
+          if (char === " " && !inQuotes) {
             if (current) {
               result.push(current);
-              current = '';
+              current = "";
             }
           } else if (char === '"' || char === "'") {
-            if (inQuotes && cmdstr[i - 1] !== '\\') {
+            if (inQuotes && cmdstr[i - 1] !== "\\") {
               inQuotes = false;
             } else if (!inQuotes) {
               inQuotes = true;
@@ -412,8 +435,8 @@ import dayjs from "dayjs";
             child_process.execFileSync("bash", ["-c", script], { stdio: "inherit" });
           } else {
             // windows
-            script = '$ErrorActionPreference = "Stop";' + script;
-            script.replace(/&&/g, ";");
+            script = '$ErrorActionPreference = "Stop"; ' + script;
+            script.replace(/&&/g, "; ");
             console.log(`${C.bgBlackBright(`🍫 Run script `)} ${C.whiteBright(script)}`);
             child_process.execFileSync("powershell.exe", ["-Command", script], { stdio: "inherit" });
           }
@@ -425,10 +448,9 @@ import dayjs from "dayjs";
 
       console.log("");
     }
-  }
+  };
 
   await execute(args);
-
 })().catch((error) => {
   console.log(`${C.bgRedBright(`🍫 Script error `)} ${error.message}`);
   exit(1);
