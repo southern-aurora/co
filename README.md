@@ -1,8 +1,8 @@
 # co
 
-Give your muddled scripts a memorable alias!
+No need to recall which JavaScript package manager to use!
 
-为你冗长繁杂的脚本们设置一个简单易记的别名！
+不需要记住要使用哪个 JavaScript 包管理器！
 
 ## How was co born / co 是怎样诞生的
 
