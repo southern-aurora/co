@@ -56,6 +56,12 @@ npm install --global co-macos-x64@3.0.0
 npm install --global co-macos-arm64@3.0.0
 ```
 
+如果你正在使用 Bun，也同样可以安装：
+
+```sh
+bun add --global 你的版本
+```
+
 ## Manual install / 手动安装
 
 If you don't have `npm` (for `deno` or other language users), you can download the binary directly and put it in your global environment variables.
@@ -175,7 +181,7 @@ In addition to helping you unify package manager commands, bun can also help sim
 
 除了帮助您统一软件包管理器命令之外，bun 还可以帮助简化一些常见命令（例如 git）。这些是可选的，您可以根据自己的喜好将它们添加到您的项目中。
 
-## Git
+### Git
 
 在你的 `.co.toml` 中的 `includes`，添加 `co:git` 即可启用。
 
@@ -190,9 +196,9 @@ The available commands can be found in the [Git alias list](./GIT_ALIAS_LIST.md)
 
 ## From the community / 来自社区
 
-Commands starting with co: are built-in. You can also use commands from the community by providing an http(s) link or a relative path (`./`). If you provide a link, we assume it is static. The command will be downloaded from the web on the first run and cached in ~/.co-temps, and subsequently run from the cache on each run.
+Commands starting with co: are built-in. You can also use commands from the community by providing an http(s) link or a relative path (`./` or `~/`). If you provide a link, we assume it is static. The command will be downloaded from the web on the first run and cached in ~/.co-temps, and subsequently run from the cache on each run.
 
-命令以 co:开头的是内置命令。您还可以使用来自社区的命令，只需提供一个 http(s)链接或相对路径 (`./`)。如果您提供了一个链接，我们会假设它是静态的。该命令将在首次运行时从网络下载并缓存在~/.co-temps 中，然后在每次运行时从缓存中运行。
+命令以 co:开头的是内置命令。您还可以使用来自社区的命令，只需提供一个 http(s)链接或相对路径 (`./` 或 `~/`)。如果您提供了一个链接，我们会假设它是不会变化的。该命令将在首次运行时从网络下载并缓存在~/.co-temps 中，然后在每次运行时从缓存中运行，除非缓存文件被删除，否则不会再次重新下载。
 
 If you want to write your own co script, please read the [writing guide](./WRITING_GUIDE.md).
 

@@ -8,38 +8,39 @@ scripts = [
     'node ./bootstrap.js',
 ]
 
-["build"]
-commands = ["build"]
+["publish"]
+commands = ["publish", "p"]
 scripts = [
-    #
+    # linux-x64
+    'npm install -g pkg',
     'rm -rf ./dist',
     'pkg . --targets node18-linux-x64 --compress Brotli',
     'cp ./package/package.json.template ./dist/package.json && cp ./README.md ./dist/README.md',
     'echo "\"bin\": {\"co\": \"co\"}," >>  ./dist/package.json',
     'echo "\"name\": \"co-linux-x64\"" >> ./dist/package.json  && echo "}" >> ./dist/package.json',
     'cd ./dist && npm publish --access public',
-    #
+    # linux-arm64
     'rm -rf ./dist',
     'pkg . --targets node18-linux-arm64 --compress Brotli',
     'cp ./package/package.json.template ./dist/package.json && cp ./README.md ./dist/README.md',
     'echo "\"bin\": {\"co\": \"co\"}," >>  ./dist/package.json',
     'echo "\"name\": \"co-linux-arm64\"" >> ./dist/package.json  && echo "}" >> ./dist/package.json',
     'cd ./dist && npm publish --access public',
-    #
+    # macos-x64
     'rm -rf ./dist',
     'pkg . --targets node18-macos-x64 --compress Brotli',
     'cp ./package/package.json.template ./dist/package.json && cp ./README.md ./dist/README.md',
     'echo "\"bin\": {\"co\": \"co\"}," >>  ./dist/package.json',
     'echo "\"name\": \"co-macos-x64\"" >> ./dist/package.json  && echo "}" >> ./dist/package.json',
     'cd ./dist && npm publish --access public',
-    #
+    # macos-arm64
     'rm -rf ./dist',
     'pkg . --targets node18-macos-arm64 --compress Brotli',
     'cp ./package/package.json.template ./dist/package.json && cp ./README.md ./dist/README.md',
     'echo "\"bin\": {\"co\": \"co\"}," >>  ./dist/package.json',
     'echo "\"name\": \"co-macos-arm64\"" >> ./dist/package.json  && echo "}" >> ./dist/package.json',
     'cd ./dist && npm publish --access public',
-    #
+    # win-x64
     'rm -rf ./dist',
     'pkg . --targets node18-win-x64 --compress Brotli',
     'cp ./package/package.json.template ./dist/package.json && cp ./README.md ./dist/README.md',
