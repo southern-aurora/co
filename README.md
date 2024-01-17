@@ -37,13 +37,13 @@ For `deno` and other languages, they do not have similar command alias support, 
 `co` 本质是单个可执行二进制文件，你可以通过 `npm` 来快速安装和你系统与 CPU 类型相符的版本：
 
 ```sh
-npm install --global 你的版本
+npm install --global YOUR_VERSION
 ```
 
 如果你正在使用 Bun，也同样可以安装：
 
 ```sh
-bun add --global 你的版本
+bun add --global YOUR_VERSION
 ```
 
 可选的版本有：
