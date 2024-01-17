@@ -40,6 +40,8 @@ For `deno` and other languages, they do not have similar command alias support, 
 npm install --global YOUR_VERSION
 ```
 
+If you are using Bun, you can also install:
+
 如果你正在使用 Bun，也同样可以安装：
 
 ```sh
