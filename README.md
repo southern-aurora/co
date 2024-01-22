@@ -1,8 +1,8 @@
 # co
 
-No need to remember which JavaScript package manager to use anymore!
+Don't even think about using any package manager anymore!
 
-不再需要记住，该用哪个 JavaScript 包管理器！
+再也别想该用啥包管理器了！
 
 ## How was co born / co 是怎样诞生的
 
