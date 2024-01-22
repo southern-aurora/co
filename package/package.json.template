@@ -1,5 +1,1 @@
-{
-    "version": "3.0.1",
-    "description": "🥵 Give your muddled scripts a memorable alias!",
-    "main": "index.js",
-    "scripts": {},
+{"version": "3.0.1","description": "🥵 No need to remember which JavaScript package manager to use anymore!","main": "index.js","scripts": {},
