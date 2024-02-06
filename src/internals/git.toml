@@ -6,6 +6,12 @@ scripts = [
     '''
     git commit -m <%= JSON.stringify(
         await ui({
+            type: "select",
+            message: "Enter commit tag",
+            choices: ["🔧 fix: ", "✨ feat: ", "🚀 refactor: ", "📝 doc: ", "🔖 release: ", "🎉 init: ", ""],
+        })
+        +
+        await ui({
             type: "input",
             message: 'Enter commit message',
             initial: 'update'

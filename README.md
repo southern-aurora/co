@@ -33,23 +33,23 @@ bun add --global 你的版本
 可选的版本有：
 
 ```sh
-co-win-x64@3.0.1
+co-win-x64@3.0.2
 ```
 
 ```sh
-co-linux-x64@3.0.1
+co-linux-x64@3.0.2
 ```
 
 ```sh
-co-linux-arm64@3.0.1
+co-linux-arm64@3.0.2
 ```
 
 ```sh
-co-macos-x64@3.0.1
+co-macos-x64@3.0.2
 ```
 
 ```sh
-co-macos-arm64@3.0.1
+co-macos-arm64@3.0.2
 ```
 
 ## 手动安装
@@ -60,8 +60,8 @@ co-macos-arm64@3.0.1
 
 ```sh
 cd /tmp \
-&& wget "https://cdn.npmmirror.com/packages/co-linux-x64/3.0.1/co-linux-x64-3.0.1.tgz" \
-&& tar -xzf co-linux-x64-3.0.1.tgz \
+&& wget "https://cdn.npmmirror.com/packages/co-linux-x64/3.0.2/co-linux-x64-3.0.2.tgz" \
+&& tar -xzf co-linux-x64-3.0.2.tgz \
 && mv /tmp/package/co /usr/bin/co \
 && chmod 777 /usr/bin/co
 ```
